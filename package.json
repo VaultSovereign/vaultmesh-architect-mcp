@@ -11,6 +11,9 @@
     "coverage": "c8 -r text -r html -r lcov -o coverage vitest run && c8 check-coverage --lines 85 --functions 85 --branches 80 --statements 85",
     "cli:dryrun": "bash scripts/amend_constitution.sh --reason 'local dryrun' <<< n",
     "verify:release": "bash scripts/verify_release.sh v1.0.0",
+    "merkle": "bash -lc '{ printf "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":0,\\\"method\\\":\\\"initialize\\\",\\\"params\\\":{\\\"protocolVersion\\\":\\\"2025-06-18\\\",\\\"capabilities\\\":{},\\\"clientInfo\\\":{\\\"name\\\":\\\"npm\\\",\\\"version\\\":\\\"1.0\\\"}}}\\n"; printf "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":1,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"name\\\":\\\"compute_merkle_root\\\",\\\"arguments\\\":{\\\"root\\\":\\\".\\\",\\\"out\\\":\\\"manifests/hash-manifest.json\\\"}}}\\n"; } | node server.js --stdio",
+    "anchor": "bash -lc '{ printf "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":0,\\\"method\\\":\\\"initialize\\\",\\\"params\\\":{\\\"protocolVersion\\\":\\\"2025-06-18\\\",\\\"capabilities\\\":{},\\\"clientInfo\\\":{\\\"name\\\":\\\"npm\\\",\\\"version\\\":\\\"1.0\\\"}}}\\n"; printf "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"name\\\":\\\"multi_anchor\\\",\\\"arguments\\\":{\\\"manifestPath\\\":\\\"manifests/hash-manifest.json\\\"}}}\\n"; } | node server.js --stdio",
+    "audit:seal": "node governance/scripts/audit_seal.js",
     "coverage:open": "xdg-open coverage/index.html || open coverage/index.html || true"
   },
   "keywords": [],

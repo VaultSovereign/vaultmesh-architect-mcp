@@ -1,0 +1,13 @@
+{
+  "type": "audit",
+  "payload": {
+    "realm": "global",
+    "title": "VaultMesh Forensic Audit",
+    "report_path": "governance/audits/[YYYY-MM-DD]_forensic_report.md",
+    "merkle_root": "[MERKLE_ROOT]",
+    "incidents": 0,
+    "summary": "Forensic audit summary pending."
+  },
+  "attestors": ["VaultMesh Architect", "sovereign"]
+}
+
