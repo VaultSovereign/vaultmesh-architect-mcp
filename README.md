@@ -146,6 +146,17 @@ bash scripts/amend_constitution.sh --reason "update K8s orchestration policy" --
 
 The script fetches -> opens your editor -> diffs -> proposes -> optionally approves, and records LAWCHAIN entries along the way.
 
+Verification
+------------
+
+Verify a tagged release by confirming tarball checksum and matching LAWCHAIN/receipt proofs:
+
+```bash
+bash scripts/verify_release.sh v1.0.0
+```
+
+This downloads the tarball + checksums, recomputes SHA-256, and ensures the hash appears in LAWCHAIN entries or anchor receipts.
+
 Working Directory Override
 --------------------------
 

@@ -9,3 +9,6 @@ release:
 		--notes-file docs/releases/$(RELEASE_TAG).md \
 		--verify-tag --generate-notes || true
 
+.PHONY: verify-release
+verify-release:
+	@bash scripts/verify_release.sh $(RELEASE_TAG)

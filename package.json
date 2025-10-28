@@ -10,6 +10,7 @@
     "test:watch": "vitest --watch",
     "coverage": "c8 -r text -r html -r lcov -o coverage vitest run && c8 check-coverage --lines 85 --functions 85 --branches 80 --statements 85",
     "cli:dryrun": "bash scripts/amend_constitution.sh --reason 'local dryrun' <<< n",
+    "verify:release": "bash scripts/verify_release.sh v1.0.0",
     "coverage:open": "xdg-open coverage/index.html || open coverage/index.html || true"
   },
   "keywords": [],
