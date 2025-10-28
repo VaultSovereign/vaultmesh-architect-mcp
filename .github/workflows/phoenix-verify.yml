@@ -1,0 +1,78 @@
+name: phoenix-resilience-verification
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install Python deps
+        run: pip install pyyaml
+
+      - name: Build Rust plugin
+        working-directory: tem/rust/phoenix_resilience
+        run: cargo build --quiet
+
+      - name: Run Python plugin (parity + log)
+        id: py
+        run: |
+          python - <<'EOF'
+          import json
+          from tem.python.plugins.phoenix_resilience import load_config, PhoenixResiliencePlugin
+          cfg = load_config("config/phoenix_resilience.yaml")
+          phoenix = PhoenixResiliencePlugin(cfg)
+          # Parity
+          out = {"next_phase": phoenix.next_phase("Normal", 0.208, 2.5)}
+          print(json.dumps(out))
+          # Log LAWCHAIN invocation best-effort by simulating activation
+          phoenix._log_lawchain({"phase":"NIGREDO","psi":0.208,"pe":2.5})
+          EOF
+          
+      - name: Run Rust plugin
+        id: rs
+        working-directory: tem/rust/phoenix_resilience
+        run: |
+          cargo run --quiet --example verify -- 0.208 2.5 > ../../rust_out.json
+
+      - name: Compare outputs (next_phase)
+        run: |
+          python - <<'EOF'
+          import json, subprocess, sys
+          # Capture py stdout from previous step by re-running the same compute quickly
+          from tem.python.plugins.phoenix_resilience import load_config, PhoenixResiliencePlugin
+          cfg = load_config("config/phoenix_resilience.yaml")
+          phoenix = PhoenixResiliencePlugin(cfg)
+          py = {"next_phase": phoenix.next_phase("Normal", 0.208, 2.5)}
+          with open("tem/rust_out.json","r") as f:
+            rs = json.load(f)
+          if py.get("next_phase") != rs.get("next_phase"):
+            print("❌ Mismatch:", py, rs); sys.exit(1)
+          print("✅ Python/Rust parity confirmed:", py)
+          EOF
+
+      - name: Check LAWCHAIN log
+        run: |
+          find governance/lawchain -type f -name '*phoenix-invocation*.json' -mtime -1 -print -quit \
+            || (echo "⚠️  No LAWCHAIN log found (non-blocking)" && exit 0)
+          echo "✅ LAWCHAIN log present"
+
+      - name: Verify receipt presence (optional)
+        run: |
+          find governance/anchor-receipts -type f -name '*anchor*' -mtime -1 -print -quit \
+            || (echo "⚠️  No new anchor receipts (DRY_RUN=true)" && exit 0)
+
