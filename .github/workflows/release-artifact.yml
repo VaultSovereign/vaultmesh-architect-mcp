@@ -1,0 +1,21 @@
+name: build-release-artifact
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Archive repo
+        run: |
+          tar czf vaultmesh-architect-mcp-${GITHUB_REF_NAME}.tar.gz .
+      - name: Upload to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: vaultmesh-architect-mcp-${{ github.ref_name }}.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
