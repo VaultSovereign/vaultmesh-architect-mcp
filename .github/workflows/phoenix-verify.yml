@@ -100,3 +100,24 @@ jobs:
         with:
           name: phoenix-verification-summary
           path: artifacts/phoenix_summary.json
+
+      - name: Generate Shields.io badge for coherence state
+        if: success()
+        run: |
+          PSI=$(jq -r '.psi' artifacts/phoenix_summary.json)
+          PE=$(jq -r '.pe' artifacts/phoenix_summary.json)
+          PHASE=$(jq -r '.python_phase' artifacts/phoenix_summary.json)
+          echo "psi=$PSI" >> $GITHUB_ENV
+          echo "pe=$PE" >> $GITHUB_ENV
+          echo "phase=$PHASE" >> $GITHUB_ENV
+
+      - name: Create coherence badge (Gist)
+        if: success()
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN || secrets.GITHUB_TOKEN }}
+          gistID: ${{ vars.PHOENIX_GIST_ID }}
+          filename: phoenix_coherence.json
+          label: "Ψ-field"
+          message: "${{ env.phase }} | Ψ=${{ env.psi }} | PE=${{ env.pe }}"
+          color: "blue"

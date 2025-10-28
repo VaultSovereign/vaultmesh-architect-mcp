@@ -4,6 +4,7 @@ VaultMesh Architect MCP Server
 [![Tests](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml)
 [![Constitution CLI Dry-Run](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml)
 [![Release Proof](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml)
+[![Phoenix-Resilience Verification](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml)
 
 Constitution CLI Dry-Run: verifies that the terminal amendment workflow remains operable and JSON-RPC output parses correctly on every push.
 
@@ -15,6 +16,7 @@ Governance Checks
 | CI Tests    | Unit + E2E validation   | ![Tests](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml/badge.svg) |
 | CLI Dry-Run | Amendment ritual canary | ![CLI Dry-Run](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml/badge.svg) |
 | Release Proof | Anchors artifact hashes | ![Release Proof](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml/badge.svg) |
+| Phoenix Verification | Cross-runtime parity + LAWCHAIN proof health | ![Phoenix Verification](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml/badge.svg) |
 
 An MCP server that exposes the VaultMesh-Architect skill as explicit, auditable tools. It supports subsystem spawning, multi-chain anchoring (dry-run), Tem invocation, LAWCHAIN governance entries, capability issuance, CRDT realm helpers, and alchemical phase orchestration.
 
@@ -185,6 +187,17 @@ Phoenix Capability Integration
   - JSON Schema: `config/schema/phoenix_resilience.schema.yaml`
 
 A typical Tem loop calls `next_phase(current_phase, ψ, PE)` and applies mitigations from `on_incident()` when canary events are simulated.
+
+Live Coherence State
+--------------------
+
+![Ψ-field](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/YOUR_GITHUB_USER/YOUR_GIST_ID/raw/phoenix_coherence.json)
+
+Replace `YOUR_GITHUB_USER/YOUR_GIST_ID` with your Gist path and set:
+- Repo variable `PHOENIX_GIST_ID` to the Gist ID
+- Secret `GIST_TOKEN` (optional; falls back to `GITHUB_TOKEN` if permitted)
+
+The badge updates after each Phoenix verification run.
 
 Working Directory Override
 --------------------------
