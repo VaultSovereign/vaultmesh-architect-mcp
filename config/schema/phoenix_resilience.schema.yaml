@@ -1,0 +1,66 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://vaultmesh.org/schema/phoenix_resilience.schema.yaml"
+title: Phoenix Resilience Protocol Configuration
+type: object
+additionalProperties: false
+required: [phoenix_resilience]
+properties:
+  phoenix_resilience:
+    type: object
+    additionalProperties: false
+    properties:
+      enabled:
+        type: boolean
+        default: true
+      crisis_threshold:
+        type: object
+        additionalProperties: false
+        properties:
+          psi_min:
+            type: number
+            default: 0.21
+            minimum: 0
+            maximum: 1
+          pe_max:
+            type: number
+            default: 2.4
+            minimum: 0
+      recovery_rates:
+        type: object
+        additionalProperties: false
+        properties:
+          rubedo_growth:
+            type: number
+            default: 1.618
+            minimum: 1
+          pressure_discharge:
+            type: number
+            default: 0.7
+            minimum: 0
+            maximum: 1
+      timing:
+        type: object
+        additionalProperties: false
+        properties:
+          rubedo_cycles:
+            type: integer
+            default: 8
+            minimum: 1
+          stabilization_cycles:
+            type: integer
+            default: 13
+            minimum: 1
+      sacred_ratios:
+        type: object
+        additionalProperties: false
+        properties:
+          enabled:
+            type: boolean
+            default: true
+          phi_modulation:
+            type: boolean
+            default: true
+          fibonacci_cadence:
+            type: boolean
+            default: true
+

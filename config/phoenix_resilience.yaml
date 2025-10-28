@@ -1,0 +1,16 @@
+phoenix_resilience:
+  enabled: true
+  crisis_threshold:
+    psi_min: 0.21
+    pe_max: 2.4
+  recovery_rates:
+    rubedo_growth: 1.618   # φ
+    pressure_discharge: 0.7
+  timing:
+    rubedo_cycles: 8
+    stabilization_cycles: 13
+  sacred_ratios:
+    enabled: true
+    phi_modulation: true
+    fibonacci_cadence: true
+

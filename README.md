@@ -166,6 +166,26 @@ bash scripts/verify_release.sh v1.0.0 --lawchain governance/lawchain --receipts 
 
 This verifies checksum, confirms LAWCHAIN proof, and prints RFC-3161 / ETH / BTC receipt statuses for the artifact (works in both dry-run and live modes).
 
+Phoenix Capability Integration
+------------------------------
+
+- Manifest: `governance/capabilities/phoenix_resilience_protocol.md`
+- Seal + token + anchor:
+
+  ```bash
+  npm run capability:seal
+  ```
+
+- Tem plugin stubs (for integration into your Tem engine):
+  - Python: `tem/python/plugins/phoenix_resilience.py`
+  - Rust: `tem/rust/phoenix_resilience/` (crate with `TemPlugin` trait and `PhoenixResilience`)
+
+- Config + schema:
+  - YAML: `config/phoenix_resilience.yaml`
+  - JSON Schema: `config/schema/phoenix_resilience.schema.yaml`
+
+A typical Tem loop calls `next_phase(current_phase, ψ, PE)` and applies mitigations from `on_incident()` when canary events are simulated.
+
 Working Directory Override
 --------------------------
 
