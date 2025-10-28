@@ -30,6 +30,7 @@ CHECKSUM="CHECKSUMS.txt"
 
 command -v gh >/dev/null 2>&1 || { echo "gh CLI required" >&2; exit 1; }
 command -v sha256sum >/dev/null 2>&1 || { echo "sha256sum required" >&2; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo "jq required" >&2; exit 1; }
 
 echo "🔽 Downloading release assets for tag $TAG…"
 gh release download "$TAG" -p "$ASSET" -p "$CHECKSUM" >/dev/null
@@ -62,5 +63,19 @@ if [[ $FOUND -eq 0 ]]; then
   exit 2
 fi
 
-echo "✔️  Release $TAG verified successfully."
+# --- Show anchor receipts if available ----------------------------------------
+echo "🔎 Looking for detailed receipts in $REC_DIR …"
+RECEIPT_FILES=$(grep -Rl "$HASH" "$REC_DIR" || true)
 
+if [[ -z "$RECEIPT_FILES" ]]; then
+  echo "⚠️  No detailed receipts found for $HASH"
+else
+  echo "📜 Anchor receipts found:"
+  while IFS= read -r FILE; do
+    [[ -z "$FILE" ]] && continue
+    echo "— $FILE"
+    jq -r '{ rfc3161: .anchors.rfc3161.status, eth: .anchors.eth.status, btc: .anchors.btc.status, timestamp: .timestamp }' "$FILE" 2>/dev/null || true
+  done <<< "$RECEIPT_FILES"
+fi
+
+echo "✔️  Release $TAG verified successfully."

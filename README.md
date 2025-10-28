@@ -157,6 +157,15 @@ bash scripts/verify_release.sh v1.0.0
 
 This downloads the tarball + checksums, recomputes SHA-256, and ensures the hash appears in LAWCHAIN entries or anchor receipts.
 
+Verify a Release + Receipts
+---------------------------
+
+```bash
+bash scripts/verify_release.sh v1.0.0 --lawchain governance/lawchain --receipts governance/anchor-receipts
+```
+
+This verifies checksum, confirms LAWCHAIN proof, and prints RFC-3161 / ETH / BTC receipt statuses for the artifact (works in both dry-run and live modes).
+
 Working Directory Override
 --------------------------
 
