@@ -194,6 +194,7 @@ Live Coherence State
 ![Ψ-field](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/VaultSovereign/vaultmesh-architect-mcp/main/.badges/phoenix_coherence.json)
 
 The badge JSON is committed to `.badges/phoenix_coherence.json` by the Phoenix verification workflow and updates after each successful run.
+Each badge update is cryptographically anchored via LAWCHAIN (receipts under `governance/anchor-receipts/`).
 
 Working Directory Override
 --------------------------

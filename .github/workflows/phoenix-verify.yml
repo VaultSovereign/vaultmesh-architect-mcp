@@ -124,3 +124,20 @@ jobs:
           git add .badges/phoenix_coherence.json
           git commit -m "update: phoenix coherence badge" || echo "No changes"
           git push
+
+      - name: Anchor coherence badge (LAWCHAIN)
+        if: success()
+        env:
+          DRY_RUN: true
+        run: |
+          echo "🔐 Anchoring updated Phoenix badge state..."
+          # Build a minimal manifest for the badge JSON
+          HASH=$(sha256sum .badges/phoenix_coherence.json | cut -d' ' -f1)
+          cat > .badges/phoenix_manifest.json <<JSON
+          {"root": ".badges/phoenix_coherence.json", "algorithm":"sha256", "merkleRoot": "${HASH}",
+           "files": [{"path": ".badges/phoenix_coherence.json", "hash": "${HASH}"}]}
+          JSON
+          {
+            printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"phoenix-anchor","version":"1.0.0"}}}\n'
+            printf '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"multi_anchor","arguments":{"manifestPath": ".badges/phoenix_manifest.json"}}}\n'
+          } | node server.js --stdio | tail -n 1
