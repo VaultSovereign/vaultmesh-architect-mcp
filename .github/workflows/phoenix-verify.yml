@@ -22,7 +22,7 @@ jobs:
           override: true
 
       - name: Install Python deps
-        run: pip install pyyaml
+        run: pip install pyyaml jq
 
       - name: Build Rust plugin
         working-directory: tem/rust/phoenix_resilience
@@ -36,9 +36,10 @@ jobs:
           from tem.python.plugins.phoenix_resilience import load_config, PhoenixResiliencePlugin
           cfg = load_config("config/phoenix_resilience.yaml")
           phoenix = PhoenixResiliencePlugin(cfg)
-          # Parity
+          # Parity output to file
           out = {"next_phase": phoenix.next_phase("Normal", 0.208, 2.5)}
-          print(json.dumps(out))
+          with open("phoenix_py.json","w") as f:
+              json.dump(out, f)
           # Log LAWCHAIN invocation best-effort by simulating activation
           phoenix._log_lawchain({"phase":"NIGREDO","psi":0.208,"pe":2.5})
           EOF
@@ -52,12 +53,9 @@ jobs:
       - name: Compare outputs (next_phase)
         run: |
           python - <<'EOF'
-          import json, subprocess, sys
-          # Capture py stdout from previous step by re-running the same compute quickly
-          from tem.python.plugins.phoenix_resilience import load_config, PhoenixResiliencePlugin
-          cfg = load_config("config/phoenix_resilience.yaml")
-          phoenix = PhoenixResiliencePlugin(cfg)
-          py = {"next_phase": phoenix.next_phase("Normal", 0.208, 2.5)}
+          import json, sys
+          with open("phoenix_py.json","r") as f:
+            py = json.load(f)
           with open("tem/rust_out.json","r") as f:
             rs = json.load(f)
           if py.get("next_phase") != rs.get("next_phase"):
@@ -76,3 +74,29 @@ jobs:
           find governance/anchor-receipts -type f -name '*anchor*' -mtime -1 -print -quit \
             || (echo "⚠️  No new anchor receipts (DRY_RUN=true)" && exit 0)
 
+      - name: Write summary artifact
+        if: success() || failure()
+        run: |
+          mkdir -p artifacts
+          PY_PHASE=$(jq -r '.next_phase' phoenix_py.json 2>/dev/null || echo "")
+          RS_PHASE=$(jq -r '.next_phase' tem/rust_out.json 2>/dev/null || echo "")
+          LAW_LOG=$(find governance/lawchain -type f -name '*phoenix-invocation*.json' -mtime -1 -print -quit)
+          RECEIPTS=$(find governance/anchor-receipts -type f -name '*anchor*' -mtime -1 | wc -l)
+          cat > artifacts/phoenix_summary.json <<JSON
+          {
+            "run_number": "${{ github.run_number }}",
+            "python_phase": "${PY_PHASE}",
+            "rust_phase": "${RS_PHASE}",
+            "psi": 0.208,
+            "pe": 2.5,
+            "lawchain_log": "${LAW_LOG}",
+            "receipts_count": ${RECEIPTS}
+          }
+          JSON
+
+      - name: Upload artifact
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phoenix-verification-summary
+          path: artifacts/phoenix_summary.json
