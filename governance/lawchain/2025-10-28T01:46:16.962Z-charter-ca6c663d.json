@@ -1,0 +1,12 @@
+{
+  "type": "charter",
+  "timestamp": "2025-10-28T01:46:16.958Z",
+  "merkle_root": "95b8d494c3e1af54cae915ecfd5a2f93f79b02db23cd4c77b1295ec14c8e12b5",
+  "attestors": [],
+  "payload": {
+    "specPath": "specs/vaultmesh_mcp_digital_twin.yaml",
+    "note": "Initial constitution signing for VaultMesh crypto-treasury system. Establishes governance framework for treasury operations, capability-based access control, and multi-party attestation requirements."
+  },
+  "signature": "qam0Bn4LX5sU4XQlZtkVRtPrET/tUmTY7yaktza1w5k/6I06LfXX0GZ2T77OvSvs+nnIlC+LoJncxc1j8W9eBw==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}

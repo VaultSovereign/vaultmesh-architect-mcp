@@ -1,0 +1,331 @@
+{
+  "root": "",
+  "algorithm": "sha256",
+  "merkleRoot": "987b6e27f8c8123b6602b2548479749ee48d7972318e344b54816d88a1e8cd2e",
+  "files": [
+    {
+      "path": ".c8rc.json",
+      "hash": "3b00ef33ee848f99b0072910a58499d5f84efa011a17340671357c2a5d842834"
+    },
+    {
+      "path": "capabilities/treasury-admin/7cd6f17fc7a58f49.json",
+      "hash": "c7db27933d3a6618ecfdc10f5f8761010d1a75630cafc2742f27df1db3e5a3fd"
+    },
+    {
+      "path": "capabilities/treasury-auditor/2f6155c176d196ae.json",
+      "hash": "a502549a4d5b89ec455f900f2dd740f1d7c3ecf0b96f07abee381c5e18aacea5"
+    },
+    {
+      "path": "capabilities/treasury-monitoring-bot/517731a251a9f65b.json",
+      "hash": "25483895ecad0d3d502b6e50356b13022029d3f89441d60947567405e3b073f5"
+    },
+    {
+      "path": "capabilities/treasury-operator/3e01bab1e02ea4ea.json",
+      "hash": "fcb9ffe7bec5f6281eb992ff36fc2198ff3f546d13aa428cfd544843e378cc03"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "hash": "8cbeee3fcf591c835b5af0c86cc5ace9d3e530205cf569f40f9157e10b441b25"
+    },
+    {
+      "path": "coverage/base.css",
+      "hash": "3f876e51f0a46864ffa7665b4b7a1f5fb5f6f37fb6a28f014e2b12d82962c852"
+    },
+    {
+      "path": "coverage/block-navigation.js",
+      "hash": "cd8db34b1fbeb973354a93f8b4133c7c7eab34cdda9429a0434be91384783b7e"
+    },
+    {
+      "path": "coverage/favicon.png",
+      "hash": "5b0cfd52dc0bfbe544f4e1a9c77aa46b8629b0e0aad6c54f95eef457b86c2a89"
+    },
+    {
+      "path": "coverage/index.html",
+      "hash": "80a2b297ca103f582ceeaa1830319dd0a08a0abb1ab51c96eb26580536981064"
+    },
+    {
+      "path": "coverage/lcov-report/base.css",
+      "hash": "3f876e51f0a46864ffa7665b4b7a1f5fb5f6f37fb6a28f014e2b12d82962c852"
+    },
+    {
+      "path": "coverage/lcov-report/block-navigation.js",
+      "hash": "cd8db34b1fbeb973354a93f8b4133c7c7eab34cdda9429a0434be91384783b7e"
+    },
+    {
+      "path": "coverage/lcov-report/favicon.png",
+      "hash": "5b0cfd52dc0bfbe544f4e1a9c77aa46b8629b0e0aad6c54f95eef457b86c2a89"
+    },
+    {
+      "path": "coverage/lcov-report/index.html",
+      "hash": "932db5c1c72c7c77232441252f13159426dbea8c43d59d9f33b214b22e93c2b1"
+    },
+    {
+      "path": "coverage/lcov-report/prettify.css",
+      "hash": "ea3fe433f9450698ca8a230271688e7aeec12f99c8a7ef6c94379abb38f27823"
+    },
+    {
+      "path": "coverage/lcov-report/prettify.js",
+      "hash": "fa1b1e1b906ddcfa08b46f161c0f924f506e1a31b4f3e09b8caaa2463ef52c18"
+    },
+    {
+      "path": "coverage/lcov-report/server.js.html",
+      "hash": "bbf251de8dda2e68e5566a07e9321fc86ea4b29e870d1a633dfaca342d0915a0"
+    },
+    {
+      "path": "coverage/lcov-report/sort-arrow-sprite.png",
+      "hash": "42c895355f9838ede83fdfdca90127d8471aefed5ecf5342374f65ec7c3f10ab"
+    },
+    {
+      "path": "coverage/lcov-report/sorter.js",
+      "hash": "f8cc5d157379d844fd695ad567b6c29b3c1f0812964ddf6f95c26327e434bab5"
+    },
+    {
+      "path": "coverage/lcov.info",
+      "hash": "5f48dfc2a9a03efb8c972b441b9af6f6d3941fc10c6d28138d6e2f764c5eaab3"
+    },
+    {
+      "path": "coverage/prettify.css",
+      "hash": "ea3fe433f9450698ca8a230271688e7aeec12f99c8a7ef6c94379abb38f27823"
+    },
+    {
+      "path": "coverage/prettify.js",
+      "hash": "fa1b1e1b906ddcfa08b46f161c0f924f506e1a31b4f3e09b8caaa2463ef52c18"
+    },
+    {
+      "path": "coverage/server.js.html",
+      "hash": "8088816560e85d822af834e422bc1caddeb91fc7901bc538c5d8871199ea5f22"
+    },
+    {
+      "path": "coverage/sort-arrow-sprite.png",
+      "hash": "42c895355f9838ede83fdfdca90127d8471aefed5ecf5342374f65ec7c3f10ab"
+    },
+    {
+      "path": "coverage/sorter.js",
+      "hash": "f8cc5d157379d844fd695ad567b6c29b3c1f0812964ddf6f95c26327e434bab5"
+    },
+    {
+      "path": "coverage/tmp/coverage-62059-1761614134653-0.json",
+      "hash": "2ee27ff4f6758c4867771b90220eefc56e7d35e2cef7679ce1270f06d26b9035"
+    },
+    {
+      "path": "coverage/tmp/coverage-62060-1761614131160-0.json",
+      "hash": "7b3ad621f3d3898a6cd1eaced18127dd4fc8ecff3e02b6b2b40e95a5f29ac2e2"
+    },
+    {
+      "path": "coverage/tmp/coverage-62115-1761614133663-0.json",
+      "hash": "8a7530d7a6e5deba3058189dc68bbbfc4950e94995c24e8ee092c28d7ff304a8"
+    },
+    {
+      "path": "coverage/tmp/coverage-62127-1761614134596-0.json",
+      "hash": "122bbd14c8f999fd3f8667cf2124896a9e8cd61cccddcef7f532780baa4c1c08"
+    },
+    {
+      "path": "coverage/tmp/coverage-62151-1761614133980-0.json",
+      "hash": "cbc5890042a66804aa6969ece4e5904eb01b78aa0c415763b7a5f59fd529c4a1"
+    },
+    {
+      "path": "coverage/tmp/coverage-62152-1761614133459-0.json",
+      "hash": "0d6adf82399cd2d2c09418681579aab85d68de57de5b9468888c7df59e014ebe"
+    },
+    {
+      "path": "coverage/tmp/coverage-62189-1761614134252-0.json",
+      "hash": "94a970484f1291c5dd336ea1a42021b0f90cefb0e15345ceeedddd779b370b34"
+    },
+    {
+      "path": "coverage/tmp/coverage-62190-1761614134070-0.json",
+      "hash": "cf5a2789041021e5417bb221fe325714206f63506b61ec2143d2baba99ed7eff"
+    },
+    {
+      "path": "coverage/tmp/coverage-62194-1761614134161-0.json",
+      "hash": "95f22fbb707a615dc85c79364453e1ec97b7194125d6aa6d94a29e190be96aab"
+    },
+    {
+      "path": "coverage/tmp/coverage-62210-1761614134343-0.json",
+      "hash": "d296a50f45a1a7f1b8b6e24b97c82f68ee47052f1f8a365201d51f807b52f421"
+    },
+    {
+      "path": "coverage/tmp/coverage-62230-1761614134411-0.json",
+      "hash": "573fe872148673e745158d709ee7e8d752b307d2d12bc648098e7a3568bfa059"
+    },
+    {
+      "path": "coverage/tmp/coverage-62246-1761614134487-0.json",
+      "hash": "98ca061bde1ac1bfe8b5a43e51489b0a59242778a641f26013c8b740f513e111"
+    },
+    {
+      "path": "coverage/tmp/coverage-62288-1761614134519-0.json",
+      "hash": "745b308c272a8f218522d4dec4f7188ce981536b9f8a00e122dc491b28283672"
+    },
+    {
+      "path": "crates/crypto-treasury/Cargo.toml",
+      "hash": "f39e619ba0f63a9335fdcdd7acd0eaa63200f4800e25e6cb447e3a9c78ddc14e"
+    },
+    {
+      "path": "crates/crypto-treasury/src/lib.rs",
+      "hash": "318bc130f426edb899f84f34f989dfd80483167afca4b5d4f4898e00700991e8"
+    },
+    {
+      "path": "docs/releases/v1.0.0.md",
+      "hash": "5c89b502a5b96374f261146cb4a87958f8ec7f3a7644fe31416df055148256ac"
+    },
+    {
+      "path": "governance/alchemical-state.json",
+      "hash": "51eedf577ccff935f6cc6ed6d3e3538e1b7d7e47affbffa7b2f665337d45a853"
+    },
+    {
+      "path": "governance/drafts/2025-10-28T01:31:46.957Z-subsystem_spawn-crypto-treasury.json",
+      "hash": "5eaf769ab8608631dbcdd1de1552320418e482d925d73360a111f6f8c9a63917"
+    },
+    {
+      "path": "governance/incidents/2025-10-28T01:47:54.643Z-default-capability-breach.json",
+      "hash": "a5445ac640870350f0eb0c189fc424d873a34bd1aacf9682085cc0b5574070e7"
+    },
+    {
+      "path": "governance/incidents/2025-10-28T01:48:05.022Z-default-integrity-violation.json",
+      "hash": "c2fd3983c82457761866dab485dd5e286e878e9822b109dc09093d6173f64b5e"
+    },
+    {
+      "path": "governance/incidents/2025-10-28T01:48:09.672Z-default-treasury-exploit.json",
+      "hash": "ab9953c720080243de78d9f662ac0c7654bf54f7d6038812cf08054837ae24ab"
+    },
+    {
+      "path": "governance/lawchain/2025-10-28T01:43:52.771Z-subsystem_spawn-49abc675.json",
+      "hash": "bbf6da44cb4b3c6d92fe489ad6fab7ebb1c852b4b93f3e1665306e7ba8a0b864"
+    },
+    {
+      "path": "governance/lawchain/2025-10-28T01:46:16.962Z-charter-ca6c663d.json",
+      "hash": "422ea47e839be854bf0d9f8fec119450151e6b8f4d996d7b30e6b26127439d1a"
+    },
+    {
+      "path": "governance/lawchain/2025-10-28T01:47:13.832Z-release-global-71d4b301.json",
+      "hash": "c6b902dc4258a68d0747d207f1b2236f3fea595507841a38ddb89cbb7aadd39d"
+    },
+    {
+      "path": "Makefile",
+      "hash": "40f01689e2a8b9b3ead7f5c501ef2354f47c9ec1aeb0e5f3adfdff7654d3d100"
+    },
+    {
+      "path": "manifests/crypto-treasury.yaml",
+      "hash": "9bd97e26cfa770580f0b3a4c79633404d2c63e317827f04def1e4b45d6442430"
+    },
+    {
+      "path": "manifests/hash-manifest.json",
+      "hash": "f2cb71b7050b80fdc9669db51012acfa2039e3ac622b0ad5a198672b4e1fa6c0"
+    },
+    {
+      "path": "package-lock.json",
+      "hash": "a6e3a1bfa10af39f61402f6e0315194dab2581c845c5ea419fdc801603c9e87c"
+    },
+    {
+      "path": "package.json",
+      "hash": "8ef63b3c88244c20a07b80691b4f7682361eff74bb36ad3b6761d3a073aed304"
+    },
+    {
+      "path": "prompts/amend_constitution.prompt.yaml",
+      "hash": "2bda9b25d54ba97444815f9430e5665f7bd5d03c15ed8459462331ad09a67e04"
+    },
+    {
+      "path": "README.md",
+      "hash": "e3cde3c1676fc79dc3d8be01de68d259a015790f2ec18a572a25867a45706cc8"
+    },
+    {
+      "path": "scripts/amend_constitution.sh",
+      "hash": "dd8d972c78070449b2a4df47df65635c8fae5da72424a16a58a7885de977615a"
+    },
+    {
+      "path": "scripts/verify_release.sh",
+      "hash": "9bed8e6f9099390aa7cab6515cf1bc128dfd1e8dc6b0285d253f318b09d9b3dd"
+    },
+    {
+      "path": "server.js",
+      "hash": "3dac38630f9b73ca1a4051fa5e2f7d1288ee01b62d4a168f733a9f4e4f107234"
+    },
+    {
+      "path": "specs/schema/vaultmesh_mcp_digital_twin.schema.json",
+      "hash": "9791151fb128d558ce4000ab71ea7cba7d4bc735c1af5ac39a45d18321ebf2ab"
+    },
+    {
+      "path": "specs/vaultmesh_mcp_digital_twin.yaml",
+      "hash": "95b8d494c3e1af54cae915ecfd5a2f93f79b02db23cd4c77b1295ec14c8e12b5"
+    },
+    {
+      "path": "tests/__snapshots__/hash-manifest.spec.mjs.snap",
+      "hash": "e068f773643f02d9dab41038a8fce21b2c582fee4840a537846e664da7ef2291"
+    },
+    {
+      "path": "tests/hash-manifest.spec.mjs",
+      "hash": "6308413f43d078e306cd17893a605e90ac2e7320c41a8a0afb631a624c0d074d"
+    },
+    {
+      "path": "tests/helpers/rpcClient.js",
+      "hash": "0158a737f0ab754aeab6b0159e9321e40de5a5c4f101b71a7995adbb88844a06"
+    },
+    {
+      "path": "tests/manifest.fixture.mjs",
+      "hash": "2b7f39b2c83431b02198457b3c46f499b34bfd2d3ae7cf94caf04d26c1ed2149"
+    },
+    {
+      "path": "tests/prompts/amend-constitution.spec.mjs",
+      "hash": "5e5e4d342618d28da17b2429df89f16a0dbbc7f5d7fc134bee6a392c9f09adda"
+    },
+    {
+      "path": "tests/property/lawchain-signature.spec.mjs",
+      "hash": "53d0c0b1d3c32e87a12b82db5c44bfdf1919e76012bad939b1b44634f971e593"
+    },
+    {
+      "path": "tests/property/manifest-drift.spec.mjs",
+      "hash": "01ad82aef5bc6ea76b3ab82113d1edf41e40140ff7ea8ba94290b7fe354afda7"
+    },
+    {
+      "path": "tests/property/multi-anchor.spec.mjs",
+      "hash": "d02b3c0e3a3472270c1d8199e7c4cbdbe153944eb6868bfe5cee6d9a3de61b80"
+    },
+    {
+      "path": "tests/resources/constitution-amend.spec.mjs",
+      "hash": "0e97044da9c8e0592e212ca2b70b195f410aeaaa599c621540b24b22ff0a976a"
+    },
+    {
+      "path": "tests/resources/constitution-resource.spec.mjs",
+      "hash": "b3c47788e77f4d3b7b144ab9dbc181bdaf26f4a780f3c838fe54871570a4a4bf"
+    },
+    {
+      "path": "tests/server-cli.spec.mjs",
+      "hash": "05e41fd4e1bb83b407a53b5b8e1a72b91a46bd5f539bf55f4ba937f545b5eb50"
+    },
+    {
+      "path": "tests/server.spec.mjs",
+      "hash": "46ad46f38ec2867eead195a4f635729d76c3142c0d0568bbdd87fe139a64c543"
+    },
+    {
+      "path": "tests/specs/architecture.spec.mjs",
+      "hash": "960e7f32f0f395ee0dba9c0f4f57ae7aad5295e417b835e3cd931949439baa90"
+    },
+    {
+      "path": "tmp-anchor-dry/governance/anchor-receipts/2025-10-28T01:15:33.446Z-anchor-584ce080734d.json",
+      "hash": "3278c31b1b141bfe23a6c6b3994646fb02eef362c1f8efe829812adfd2e50083"
+    },
+    {
+      "path": "tmp-anchor-dry/manifests/hash-manifest.json",
+      "hash": "f72970ce85dce88323dfb7547b923db61e3557a4b0b7540731c6f6020eef5d1d"
+    },
+    {
+      "path": "tmp-anchor-dry/README.md",
+      "hash": "584ce080734ddff02598b1cb27291d8984ce9993666a40d98bf6e3d62ce44c51"
+    },
+    {
+      "path": "tmp-anchor-live/governance/anchor-receipts/2025-10-28T01:15:34.474Z-anchor-584ce080734d.json",
+      "hash": "c94c1aa2d20888b3f3174aec772daed09b4bc405454f4fc0d51606bc5f764b5f"
+    },
+    {
+      "path": "tmp-anchor-live/manifests/hash-manifest.json",
+      "hash": "f72970ce85dce88323dfb7547b923db61e3557a4b0b7540731c6f6020eef5d1d"
+    },
+    {
+      "path": "tmp-anchor-live/README.md",
+      "hash": "584ce080734ddff02598b1cb27291d8984ce9993666a40d98bf6e3d62ce44c51"
+    },
+    {
+      "path": "vitest.config.mjs",
+      "hash": "6e1b92dcbd3c99f7bbe06bbaf87bedca267042c5cbfad127d15c7e5e12f3d0b3"
+    }
+  ]
+}

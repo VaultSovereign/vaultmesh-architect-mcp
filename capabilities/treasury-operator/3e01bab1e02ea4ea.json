@@ -1,0 +1,14 @@
+{
+  "cap": {
+    "jti": "3e01bab1e02ea4ea",
+    "sub": "treasury-operator",
+    "iat": 1761615778,
+    "exp": 1761658978,
+    "scopes": [
+      "treasury:read",
+      "treasury:transfer"
+    ]
+  },
+  "signature": "prjbcL4NljB0SEzu2WdnzdTW82IjW5SDlDw157Ugr1q2awZekJ3gaJwZhPKMETGstTEf/zwNHIODG0PVxv5MAA==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}

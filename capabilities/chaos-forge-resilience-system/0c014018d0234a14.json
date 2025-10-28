@@ -1,0 +1,16 @@
+{
+  "cap": {
+    "jti": "0c014018d0234a14",
+    "sub": "chaos-forge-resilience-system",
+    "iat": 1761616866,
+    "exp": 1793152866,
+    "scopes": [
+      "autonomous-recovery",
+      "phase-transition",
+      "coherence-restoration",
+      "threat-transmutation"
+    ]
+  },
+  "signature": "60F5Ly0nTs5Uq/3bdFArRsN2OHDonqexYZ0EQ4zXSUXYpR0q8qyvbgT8hMweiMB0wc7kbw8V7TyNftDGB20CBw==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEATCeTB9GRRa+vRBgYsZ+emIFY6mu/JDSe94zhNfHyZfk=\n-----END PUBLIC KEY-----\n"
+}

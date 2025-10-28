@@ -1,0 +1,16 @@
+{
+  "type": "incident",
+  "threat": "dos-attack",
+  "realm": "default",
+  "autoRemediate": true,
+  "lastGoodRoot": "d21bc8a8348725ce3ea56e6bc311f2a0cd15b46e38cac1c88893e9146483ebdb",
+  "transmutation": {
+    "kind": "rate_limit",
+    "signature": "tem-dos-attack-371112fd63693bb8",
+    "parameters": {
+      "realm": "default",
+      "mode": "auto"
+    }
+  },
+  "timestamp": "2025-10-28T01:49:30.409Z"
+}

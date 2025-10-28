@@ -264,3 +264,25 @@ printf '{"jsonrpc":"2.0","method":"initialize","params":{},"id":1}\n' | node ser
 ```
 
 You should see a JSON response on stdout confirming initialization.
+
+Monitoring / Dashboards
+-----------------------
+
+### Ψ (t) Live Endpoint
+
+A lightweight HTTP endpoint exposes the current coherence state.
+
+| Endpoint | Description |
+| -------- | ----------- |
+| `/healthz` | Health check |
+| `/query` | Returns `{ data: { psi: { psi, phase, contributions[] } } }` |
+| `/query?max=5` | Limits contributions in response |
+
+Run locally:
+
+```bash
+npm run psi:server
+curl http://localhost:9124/query
+```
+
+In CI, the `psi-coherence-monitor` workflow starts this endpoint, queries it once, and records the latest Ψ and phase in the summary.

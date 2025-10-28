@@ -1,0 +1,16 @@
+{
+  "type": "incident",
+  "threat": "capability-breach",
+  "realm": "default",
+  "autoRemediate": false,
+  "lastGoodRoot": "d21bc8a8348725ce3ea56e6bc311f2a0cd15b46e38cac1c88893e9146483ebdb",
+  "transmutation": {
+    "kind": "rate_limit",
+    "signature": "tem-capability-breach-562c45cf0b966035",
+    "parameters": {
+      "realm": "default",
+      "mode": "advisory"
+    }
+  },
+  "timestamp": "2025-10-28T01:47:54.643Z"
+}

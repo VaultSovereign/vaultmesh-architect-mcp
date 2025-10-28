@@ -1,0 +1,18 @@
+{
+  "type": "release",
+  "timestamp": "2025-10-28T02:37:24.945Z",
+  "merkle_root": null,
+  "attestors": [
+    "sovereign",
+    "vaultmesh-architect"
+  ],
+  "payload": {
+    "component": "constitution",
+    "version": "v2.0.0",
+    "notes": "Constitution v2.0 ratified; quantum-readiness, healthcare ref-arch, hierarchical twin, formal verification, expanded metrics & compliance.",
+    "manifest": "manifests/hash-manifest.json",
+    "root": "5c74ae7088119be0f36c9431e850d945776237ed7ba15a901cfe0c4764dadca6"
+  },
+  "signature": "ZdaRBHIt1pWrBShGY9hNq6laUYsEPG6s4E/WCW5Z14mEUBhukpMH3g9rC47IlVWD8M6LeWiGcl3EAv8FP+oYAg==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA3yKxEIT5ma9Q7E0e1cX6eie+yX2K49mK3CWK3z9/ImE=\n-----END PUBLIC KEY-----\n"
+}

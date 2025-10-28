@@ -1,0 +1,61 @@
+{
+  "type": "subsystem_spawn",
+  "timestamp": "2025-10-28T01:43:52.771Z",
+  "merkle_root": null,
+  "attestors": [
+    "sovereign",
+    "vaultmesh-architect"
+  ],
+  "payload": {
+    "subsystem": "crypto-treasury",
+    "organType": "treasury",
+    "timestamp": "2025-10-28T01:31:46.957Z",
+    "description": "Spawned crypto-treasury organ for managing crypto assets with multi-role capability-based access control",
+    "capabilities_issued": [
+      {
+        "subject": "treasury-admin",
+        "scopes": [
+          "treasury:read",
+          "treasury:write",
+          "treasury:transfer",
+          "treasury:audit",
+          "treasury:configure"
+        ],
+        "ttl": "24h",
+        "capability_id": "7cd6f17fc7a58f49"
+      },
+      {
+        "subject": "treasury-auditor",
+        "scopes": [
+          "treasury:read",
+          "treasury:audit"
+        ],
+        "ttl": "30d",
+        "capability_id": "2f6155c176d196ae"
+      },
+      {
+        "subject": "treasury-operator",
+        "scopes": [
+          "treasury:read",
+          "treasury:transfer"
+        ],
+        "ttl": "12h",
+        "capability_id": "3e01bab1e02ea4ea"
+      },
+      {
+        "subject": "treasury-monitoring-bot",
+        "scopes": [
+          "treasury:read"
+        ],
+        "ttl": "7d",
+        "capability_id": "517731a251a9f65b"
+      }
+    ],
+    "manifests": {
+      "kubernetes": "manifests/crypto-treasury.yaml",
+      "rust_crate": "crates/crypto-treasury/"
+    }
+  },
+  "signature": "VBwTsWxjgtl/+8tBNHC+tJJEi/xXpH/MKdIOGkybkP3f6BoTzsAVTVTeoGT9RKpbf1b92jr2X1t8ORyE98f7Dg==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}

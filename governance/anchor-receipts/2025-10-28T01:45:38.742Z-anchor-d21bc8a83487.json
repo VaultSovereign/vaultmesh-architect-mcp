@@ -1,0 +1,16 @@
+{
+  "merkle_root": "d21bc8a8348725ce3ea56e6bc311f2a0cd15b46e38cac1c88893e9146483ebdb",
+  "timestamp": "2025-10-28T01:45:38.742Z",
+  "dry_run": true,
+  "anchors": {
+    "rfc3161": {
+      "status": "simulated"
+    },
+    "eth": {
+      "status": "simulated"
+    },
+    "btc": {
+      "status": "simulated"
+    }
+  }
+}

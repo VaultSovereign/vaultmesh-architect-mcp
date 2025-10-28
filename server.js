@@ -140,6 +140,25 @@ function cratesPath(...parts) {
   return path.join(CWD, 'crates', ...parts);
 }
 
+// Internal helper to write anchor receipts for a given manifest object
+function writeAnchorReceipts(manifestObj) {
+  const root = manifestObj.merkleRoot;
+  const ts = nowIso();
+  const receipt = {
+    merkle_root: root,
+    timestamp: ts,
+    dry_run: DRY_RUN,
+    anchors: {
+      rfc3161: { status: DRY_RUN ? 'simulated' : 'pending' },
+      eth: { status: DRY_RUN ? 'simulated' : 'pending' },
+      btc: { status: DRY_RUN ? 'simulated' : 'pending' }
+    }
+  };
+  const outFile = lawchainPath('anchor-receipts', `${ts}-anchor-${root.slice(0, 12)}.json`);
+  writeJson(outFile, receipt);
+  return outFile;
+}
+
 function proposalsPath(...parts) {
   return lawchainPath('lawchain', 'proposals', ...parts);
 }
@@ -394,6 +413,41 @@ mcp.registerPrompt(
   }
 );
 
+// ---------- Security Automation ----------
+// Record LAWCHAIN security-hardening and anchor its hash
+mcp.registerTool(
+  'record_security_hardening',
+  {
+    description: 'Record a LAWCHAIN security-hardening entry and anchor its hash (respects DRY_RUN)',
+    inputSchema: { summary: z.string().default('Periodic Tem hardening') }
+  },
+  async ({ summary = 'Periodic Tem hardening' }) => {
+    const ts = nowIso();
+    const payload = { realm: 'global', summary, ts };
+    const entry = { type: 'incident', timestamp: ts, payload };
+    const sig = signEd25519(entry);
+    const lawFile = lawchainPath('lawchain', `${ts}-security-hardening-${shortId(4)}.json`);
+    writeJson(lawFile, { ...entry, signature: sig.signature, publicKeyPem: sig.publicKeyPem });
+
+    const lawRel = path.relative(CWD, lawFile);
+    const fileHash = sha256(fs.readFileSync(lawFile));
+    const manifestObj = {
+      root: lawRel,
+      algorithm: 'sha256',
+      merkleRoot: fileHash,
+      files: [{ path: lawRel, hash: fileHash }]
+    };
+    const tmpManifest = manifestsPath(`security-hardening-${ts}.json`);
+    writeJson(tmpManifest, manifestObj);
+    const receipts = writeAnchorReceipts(manifestObj);
+    return {
+      content: [
+        { type: 'text', text: `Security-hardening recorded: ${lawFile}\nAnchored (dry_run=${DRY_RUN}). Receipts: ${receipts}` }
+      ]
+    };
+  }
+);
+
 mcp.registerTool(
   'multi_anchor',
   {
@@ -404,25 +458,89 @@ mcp.registerTool(
   },
   async ({ manifestPath }) => {
     const manifest = JSON.parse(fs.readFileSync(path.resolve(CWD, manifestPath), 'utf8'));
-    const root = manifest.merkleRoot;
-    const ts = nowIso();
-    const receipt = {
-      merkle_root: root,
-      timestamp: ts,
-      dry_run: DRY_RUN,
-      anchors: {
-        rfc3161: { status: DRY_RUN ? 'simulated' : 'pending' },
-        eth: { status: DRY_RUN ? 'simulated' : 'pending' },
-        btc: { status: DRY_RUN ? 'simulated' : 'pending' }
-      }
-    };
-    const outFile = lawchainPath('anchor-receipts', `${ts}-anchor-${root.slice(0, 12)}.json`);
-    writeJson(outFile, receipt);
+    const outFile = writeAnchorReceipts(manifest);
     return { content: [{ type: 'text', text: `Anchored (dry_run=${DRY_RUN}). Receipts: ${outFile}` }] };
   }
 );
 
 const threatEnum = z.enum(['integrity-violation', 'capability-breach', 'treasury-exploit', 'dos-attack', 'injection']);
+
+mcp.registerTool(
+  'compute_psi',
+  {
+    description: 'Compute live coherence Ψ(t) from LAWCHAIN events with time-discounted integrity×meaning weighting',
+    inputSchema: {
+      now: z.number().optional().describe('Override current epoch seconds'),
+      maxContribs: z.number().int().positive().default(10).describe('Max contributions to include')
+    }
+  },
+  async ({ now, maxContribs = 10 }) => {
+    const lawDir = lawchainPath('lawchain');
+    const receiptsDir = lawchainPath('anchor-receipts');
+    const tNow = now || Math.floor(Date.now() / 1000);
+
+    const meaningByType = {
+      incident: 0.9,
+      audit: 0.85,
+      charter: 0.8,
+      release: 0.7,
+      anchor: 0.6,
+      subsystem_spawn: 0.5
+    };
+
+    function readJsonSafe(p) {
+      try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return null; }
+    }
+
+    // gather receipts merkle roots for anchored detection
+    const anchoredRoots = new Set();
+    if (fs.existsSync(receiptsDir)) {
+      for (const f of fs.readdirSync(receiptsDir)) {
+        const obj = readJsonSafe(path.join(receiptsDir, f));
+        if (obj && (obj.merkle_root || obj.merkleRoot)) anchoredRoots.add(String(obj.merkle_root || obj.merkleRoot));
+      }
+    }
+
+    const events = [];
+    if (fs.existsSync(lawDir)) {
+      for (const f of fs.readdirSync(lawDir)) {
+        const full = path.join(lawDir, f);
+        if (fs.statSync(full).isDirectory()) continue; // skip subdirs like proposals
+        const obj = readJsonSafe(full);
+        if (!obj || !obj.timestamp) continue;
+        const ts = Date.parse(obj.timestamp);
+        if (!Number.isFinite(ts)) continue;
+        const fileHash = sha256(fs.readFileSync(full));
+        const root = obj.merkle_root || fileHash;
+        const anchored = anchoredRoots.has(String(root));
+        const I = anchored ? 1.0 : 0.7;
+        const M = typeof obj.payload?.meaning_score === 'number' && obj.payload.meaning_score > 0
+          ? Math.max(0, Math.min(1, obj.payload.meaning_score))
+          : meaningByType[obj.type] ?? 0.3;
+        const deltaT = Math.max(1, tNow - Math.floor(ts / 1000));
+        const dPsi = I * M * (1 / deltaT);
+        events.push({ file: path.relative(CWD, full), type: obj.type, I, M, deltaT, dPsi });
+      }
+    }
+
+    // Sum and pick top contributors
+    const psi = events.reduce((acc, e) => acc + e.dPsi, 0);
+    events.sort((a, b) => b.dPsi - a.dPsi);
+    const top = events.slice(0, maxContribs);
+    const phase = psi >= 0.83 ? 'Rubedo' : psi < 0.25 ? 'Nigredo' : 'Albedo/Citrinitas';
+
+    const report = {
+      psi: Number(psi.toFixed(6)),
+      phase,
+      contributions: top.map((e) => ({ event: e.file, I: e.I, M: e.M, dT: e.deltaT, dPsi: Number(e.dPsi.toFixed(8)) }))
+    };
+
+    return {
+      content: [{ type: 'text', text: `Ψ=${report.psi} phase=${phase} (events=${events.length})` }],
+      structuredContent: report
+    };
+  }
+);
 
 mcp.registerTool(
   'invoke_tem',

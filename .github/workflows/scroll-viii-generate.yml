@@ -1,0 +1,27 @@
+name: forge-scroll-viii
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  forge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+      - name: Render Scroll VIII
+        run: npm run scroll:viii
+      - name: Seal audit (optional anchor)
+        env:
+          DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+        run: |
+          npm run audit:seal || true
+          git add docs/forgescrolls/ governance/audits/ governance/lawchain/
+          git commit -m "chore: forge Scroll VIII $(date -u +%F)" || true
+          git push || true
+

@@ -1,0 +1,41 @@
+{
+  "type": "subsystem_spawn",
+  "timestamp": "2025-10-28T02:02:49.384Z",
+  "merkle_root": "b3:phoenix_resilience_0c014018d0234a14_rubedo_manifestation",
+  "attestors": [
+    "chaos-forge-v1",
+    "psi-field-engine",
+    "temporal-witness"
+  ],
+  "payload": {
+    "capability_name": "Phoenix Resilience Protocol",
+    "capability_id": "0c014018d0234a14",
+    "origin": "chaos-forge-validation-2025-10-25",
+    "classification": "autonomous-recovery-system",
+    "grade": "RUBEDO",
+    "scopes": [
+      "autonomous-recovery",
+      "phase-transition",
+      "coherence-restoration",
+      "threat-transmutation"
+    ],
+    "validation_metrics": {
+      "crisis_survived": 3,
+      "coherence_recovery": 0.642,
+      "cycles_to_stability": 11,
+      "pressure_max": 2.4,
+      "final_psi": 0.8499948734029134
+    },
+    "transmutation_pattern": "Nigredo→Rubedo→Normal (Fibonacci cadence)",
+    "sacred_ratios": {
+      "phi_modulated": true,
+      "fibonacci_timing": true,
+      "golden_recovery": 1.618
+    },
+    "deployment_status": "ready",
+    "expiration": "2026-10-28T18:00:00Z",
+    "motto": "From chaos, wings. From flame, phoenix."
+  },
+  "signature": "s2ho+gmVrGrnSGyBWOolMb2OXcOF1u+Suqcmc3Xgr6xTeAqJSc+Vs6xduNicMSWkpPY+8kwno/AlRgj+bcFkCQ==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEATCeTB9GRRa+vRBgYsZ+emIFY6mu/JDSe94zhNfHyZfk=\n-----END PUBLIC KEY-----\n"
+}

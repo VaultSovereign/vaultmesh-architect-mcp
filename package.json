@@ -17,7 +17,10 @@
     "tem:canary": "node scripts/run-canary.js",
     "verify:phoenix": "gh workflow run phoenix-resilience-verification || true",
     "capability:seal": "node governance/scripts/capability_seal.js",
-    "coverage:open": "xdg-open coverage/index.html || open coverage/index.html || true"
+    "coverage:open": "xdg-open coverage/index.html || open coverage/index.html || true",
+    "scroll:viii": "node scripts/scroll-viii.js",
+    "psi:live": "node scripts/psi-live.js",
+    "psi:server": "node scripts/psi-server.js"
   },
   "keywords": [],
   "author": "",

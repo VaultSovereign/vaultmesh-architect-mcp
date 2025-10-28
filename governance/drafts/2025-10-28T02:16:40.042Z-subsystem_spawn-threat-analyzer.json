@@ -1,0 +1,7 @@
+{
+  "type": "subsystem_spawn",
+  "name": "threat-analyzer",
+  "organ": "automation",
+  "timestamp": "2025-10-28T02:16:40.042Z",
+  "manifest": "manifests/threat-analyzer.yaml"
+}
