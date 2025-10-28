@@ -101,23 +101,26 @@ jobs:
           name: phoenix-verification-summary
           path: artifacts/phoenix_summary.json
 
-      - name: Generate Shields.io badge for coherence state
+      - name: Write coherence badge JSON
         if: success()
         run: |
-          PSI=$(jq -r '.psi' artifacts/phoenix_summary.json)
-          PE=$(jq -r '.pe' artifacts/phoenix_summary.json)
-          PHASE=$(jq -r '.python_phase' artifacts/phoenix_summary.json)
-          echo "psi=$PSI" >> $GITHUB_ENV
-          echo "pe=$PE" >> $GITHUB_ENV
-          echo "phase=$PHASE" >> $GITHUB_ENV
+          mkdir -p .badges
+          python - <<'EOF'
+          import json
+          with open('artifacts/phoenix_summary.json','r') as f:
+              s = json.load(f)
+          label = 'Ψ-field'
+          message = f"{s.get('python_phase','')} | Ψ={s.get('psi','')} | PE={s.get('pe','')}"
+          badge = {"schemaVersion":1, "label":label, "message":message, "color":"blue"}
+          with open('.badges/phoenix_coherence.json','w') as f:
+              json.dump(badge, f)
+          EOF
 
-      - name: Create coherence badge (Gist)
+      - name: Commit updated badge
         if: success()
-        uses: schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN || secrets.GITHUB_TOKEN }}
-          gistID: ${{ vars.PHOENIX_GIST_ID }}
-          filename: phoenix_coherence.json
-          label: "Ψ-field"
-          message: "${{ env.phase }} | Ψ=${{ env.psi }} | PE=${{ env.pe }}"
-          color: "blue"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .badges/phoenix_coherence.json
+          git commit -m "update: phoenix coherence badge" || echo "No changes"
+          git push

@@ -191,13 +191,9 @@ A typical Tem loop calls `next_phase(current_phase, ψ, PE)` and applies mitigat
 Live Coherence State
 --------------------
 
-![Ψ-field](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/YOUR_GITHUB_USER/YOUR_GIST_ID/raw/phoenix_coherence.json)
+![Ψ-field](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/VaultSovereign/vaultmesh-architect-mcp/main/.badges/phoenix_coherence.json)
 
-Replace `YOUR_GITHUB_USER/YOUR_GIST_ID` with your Gist path and set:
-- Repo variable `PHOENIX_GIST_ID` to the Gist ID
-- Secret `GIST_TOKEN` (optional; falls back to `GITHUB_TOKEN` if permitted)
-
-The badge updates after each Phoenix verification run.
+The badge JSON is committed to `.badges/phoenix_coherence.json` by the Phoenix verification workflow and updates after each successful run.
 
 Working Directory Override
 --------------------------
