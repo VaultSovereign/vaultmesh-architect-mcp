@@ -36,8 +36,10 @@ cleanup() { rm -f "$TMP_JSON"; }
 trap cleanup EXIT
 
 echo "→ Fetching current constitution…"
-printf '{"jsonrpc":"2.0","method":"resources/read","params":{"uri":"spec://digital-twin/constitution"},"id":1}\n' \
-  | node server.js --stdio >"$TMP_JSON"
+{ \
+  printf '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"amend-cli","version":"1.0.0"}}}\n'; \
+  printf '{"jsonrpc":"2.0","method":"resources/read","params":{"uri":"spec://digital-twin/constitution"},"id":1}\n'; \
+} | node server.js --stdio | tail -n 1 >"$TMP_JSON"
 
 if ! jq -e '.result.contents[0].text' "$TMP_JSON" >/dev/null 2>&1; then
   echo "Failed to fetch constitution. Response:" >&2
@@ -65,10 +67,12 @@ set -e
 echo "Diff written to scripts/.amend/diff.patch"
 
 echo "→ Proposing charter…"
-PROP_JSON=$(printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"propose_charter","arguments":{"replacement_yaml":%s,"note":%s}},"id":2}\n' \
+PROP_JSON=$({ \
+  printf '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"amend-cli","version":"1.0.0"}}}\n'; \
+  printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"propose_charter","arguments":{"replacement_yaml":%s,"note":%s}},"id":2}\n' \
   "$(jq -Rs . < scripts/.amend/current.yaml)" \
-  "$(jq -Rn --arg s "$REASON" '$s')" \
-  | node server.js --stdio)
+  "$(jq -Rn --arg s "$REASON" '$s')"; \
+} | node server.js --stdio | tail -n 1)
 
 echo "$PROP_JSON" > "$TMP_JSON"
 PROP_ID=$(jq -r '.result.structuredContent.proposal_id // empty' "$TMP_JSON")
@@ -82,10 +86,12 @@ echo "✓ Proposal staged: $PROP_ID"
 read -rp "Approve now? [y/N] " ans
 if [[ "$ans" =~ ^[Yy]$ ]]; then
   echo "→ Approving charter…"
-  printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"approve_charter","arguments":{"proposal_id":%s,"approver":"cli-operator","apply_update":%s}},"id":3}\n' \
-    "$(jq -Rn --arg s "$PROP_ID" '$s')" \
-    "$APPLY" \
-    | node server.js --stdio > "$TMP_JSON"
+  { \
+    printf '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"amend-cli","version":"1.0.0"}}}\n'; \
+    printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"approve_charter","arguments":{"proposal_id":%s,"approver":"cli-operator","apply_update":%s}},"id":3}\n' \
+      "$(jq -Rn --arg s "$PROP_ID" '$s')" \
+      "$APPLY"; \
+  } | node server.js --stdio | tail -n 1 > "$TMP_JSON"
   if jq -e '.result.structuredContent.law_file' "$TMP_JSON" >/dev/null 2>&1; then
     echo "✓ Charter approved: $(jq -r '.result.structuredContent.law_file' "$TMP_JSON")"
   else

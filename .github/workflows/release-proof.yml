@@ -1,0 +1,43 @@
+name: anchor-release-proof
+on:
+  release:
+    types: [published]
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download release tarball
+        run: |
+          gh release download "${{ github.event.release.tag_name }}" -p "vaultmesh-architect-mcp-${{ github.event.release.tag_name }}.tar.gz"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Compute artifact hash manifest
+        run: |
+          FILE="vaultmesh-architect-mcp-${{ github.event.release.tag_name }}.tar.gz"
+          HASH=$(sha256sum "$FILE" | cut -d' ' -f1)
+          mkdir -p manifests
+          echo '{' > manifests/release-proof.json
+          echo '  "artifact": "'"$FILE"'",' >> manifests/release-proof.json
+          echo '  "algorithm": "sha256",' >> manifests/release-proof.json
+          echo '  "merkleRoot": "'"$HASH"'"' >> manifests/release-proof.json
+          echo '}' >> manifests/release-proof.json
+          cat manifests/release-proof.json
+      - name: Install server deps
+        working-directory: vaultmesh-architect-mcp
+        run: npm ci --no-audit --no-fund
+      - name: Anchor proof (dry-run by default)
+        working-directory: vaultmesh-architect-mcp
+        env:
+          DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+          RFC3161_URL: ${{ secrets.RFC3161_URL || '' }}
+          ETH_RPC_URL: ${{ secrets.ETH_RPC_URL || '' }}
+          BTC_RPC_URL: ${{ secrets.BTC_RPC_URL || '' }}
+        run: |
+          # Send initialize then anchor request; capture last line only
+          {
+            printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"release-proof","version":"1.0.0"}}}\n'
+            printf '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"multi_anchor","arguments":{"manifestPath":"manifests/release-proof.json"}}}\n'
+          } | node server.js --stdio | tail -n 1
+
