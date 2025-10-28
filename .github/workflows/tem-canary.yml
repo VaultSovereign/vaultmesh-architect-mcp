@@ -1,0 +1,43 @@
+name: Tem Canary Security Validation
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        working-directory: vaultmesh-architect-mcp
+        run: npm ci --no-audit --no-fund
+
+      - name: Run Tem canary and record hardening
+        working-directory: vaultmesh-architect-mcp
+        env:
+          DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+        run: npm run tem:canary
+
+      - name: Notify on failure (Slack)
+        if: failure()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          if [ -n "$SLACK_WEBHOOK" ]; then
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ Tem canary failed for '${{ github.repository }}' @ '${{ github.sha }}'"}' "$SLACK_WEBHOOK" || true
+          fi
+
+      - name: Notify on failure (Teams)
+        if: failure()
+        env:
+          TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
+        run: |
+          if [ -n "$TEAMS_WEBHOOK" ]; then
+            curl -H 'Content-Type: application/json' -d '{"text":"❌ Tem canary failed for '${{ github.repository }}' @ '${{ github.sha }}'"}' "$TEAMS_WEBHOOK" || true
+          fi
+
