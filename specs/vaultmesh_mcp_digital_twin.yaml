@@ -196,8 +196,6 @@ regulatory_alignment:
   critical_infrastructure_directive: "Resilience simulations, disaster recovery"
   ai_act: "Governed Tem evolution, risk classification, documentation"
   data_act: "Portable twin receipts, data access rights"
-  gdpr: "Right to erasure, data minimization, consent management"
-  dora: "ICT risk management, incident reporting, testing"
 
 cost_model:
   development:
@@ -213,42 +211,20 @@ cost_model:
     - "Maintenance & Support: 18-22% annual"
     - "Continuous Improvement: 12-18% annual"
     - "Security Operations: €3-12k/month"
-  total_cost_ownership_3yr:
-    - "Small deployment: €400-800k"
-    - "Medium deployment: €1.2-2.5M"
-    - "Large deployment: €3-8M"
 
 success_metrics:
-  technical:
-    - "Sync accuracy: >97%"
-    - "Loop latency: <50ms (critical), <100ms (standard)"
-    - "Uptime: 99.95% (standard), 99.99% (critical)"
-    - "Mean time to detection: <2min"
-    - "Mean time to recovery: <15min"
-  business:
-    - "Adoption: >75% active users"
-    - "ROI: 2.5-4 years"
-    - "Operational cost reduction: 20-35%"
-    - "Incident reduction: >40%"
-  governance:
-    - "Compliance audit pass rate: >95%"
-    - "Policy enforcement: 100%"
-    - "Audit trail completeness: 100%"
-    - "Security posture score: >85/100"
+  - "Sync accuracy: >97%"
+  - "Loop latency: <50ms (critical), <100ms (standard)"
+  - "Uptime: 99.95% (standard), 99.99% (critical)"
+  - "Mean time to detection: <2min"
+  - "Mean time to recovery: <15min"
+  - "Adoption: >75% active users"
+  - "ROI: 2.5-4 years"
+  - "Operational cost reduction: 20-35%"
+  - "Incident reduction: >40%"
+  - "Compliance audit pass rate: >95%"
+  - "Policy enforcement: 100%"
+  - "Audit trail completeness: 100%"
+  - "Security posture score: >85/100"
 
-evolution_roadmap:
-  v2.0:
-    - "Enhanced security with quantum-readiness"
-    - "Healthcare reference architecture"
-    - "Hierarchical twin deployment pattern"
-    - "Expanded cost modeling"
-  v2.1_planned:
-    - "Autonomous healing with genetic algorithms"
-    - "Multi-modal sensor fusion (vision, audio, thermal)"
-    - "Intent-based networking for organs"
-    - "Carbon footprint tracking and optimization"
-  v3.0_future:
-    - "Quantum computing integration for optimization"
-    - "Neuromorphic computing for edge intelligence"
-    - "Self-sovereign identity for twin authorization"
-    - "Metaverse integration for immersive monitoring"
+  
