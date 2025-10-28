@@ -1,0 +1,53 @@
+name: amend_constitution
+description: >
+  Guides a human or AI operator through proposing an amendment to the
+  VaultMesh Digital-Twin Constitution. It fetches the current YAML resource,
+  presents a diff, stages a charter proposal, and drafts a DAO approval message.
+steps:
+  - id: fetch
+    action: mcp.resources.read
+    params:
+      uri: spec://digital-twin/constitution
+    output: current_yaml
+
+  - id: edit
+    prompt: |
+      The current constitution is shown below.
+      Suggest or apply only the necessary changes for your amendment.
+      Output the new YAML in full.
+
+      ---
+      {{current_yaml}}
+      ---
+
+  - id: diff
+    action: system.diff
+    params:
+      old: "{{current_yaml}}"
+      new: "{{edit.output}}"
+    output: patch
+
+  - id: propose
+    action: mcp.tools.call
+    params:
+      name: propose_charter
+      arguments:
+        replacement_yaml: "{{edit.output}}"
+        note: "Proposed amendment via prompt"
+    output: proposal_result
+
+  - id: message
+    prompt: |
+      Amendment proposed successfully.
+      Charter proposal ID: {{proposal_result.id}}
+      Below is the YAML diff for review:
+
+      {{patch}}
+
+      Compose a DAO message for approvers that includes:
+        • reason for change
+        • link to proposal (LAWCHAIN path)
+        • required quorum
+        • next action: approve_charter {{proposal_result.id}}
+    output: dao_message
+

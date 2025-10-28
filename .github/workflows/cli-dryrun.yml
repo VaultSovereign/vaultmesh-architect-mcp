@@ -1,0 +1,24 @@
+name: amend-constitution-cli-dryrun
+on:
+  push:
+  pull_request:
+jobs:
+  dryrun:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install deps
+        working-directory: vaultmesh-architect-mcp
+        run: npm ci
+      - name: Dry-run amend_constitution.sh
+        working-directory: vaultmesh-architect-mcp
+        env:
+          DRY_RUN: true
+        run: |
+          bash scripts/amend_constitution.sh --reason "ci-dryrun" <<'EOF'
+          n
+          EOF
+

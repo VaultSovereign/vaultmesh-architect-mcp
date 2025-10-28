@@ -1,0 +1,24 @@
+name: mcp-tests
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install deps
+        working-directory: vaultmesh-architect-mcp
+        run: npm i --no-fund --no-audit
+      - name: Run coverage
+        working-directory: vaultmesh-architect-mcp
+        run: npm run coverage
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: vaultmesh-architect-mcp/coverage

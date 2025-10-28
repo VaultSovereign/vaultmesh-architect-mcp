@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://vaultmesh.org/schema/vaultmesh_mcp_digital_twin.schema.json",
+  "title": "VaultMesh MCP Digital Twin Architecture",
+  "type": "object",
+  "required": ["name", "version", "description", "architectural_layers", "reference_architectures", "technical_stack", "deployment_patterns", "validation_and_verification", "regulatory_alignment", "cost_model", "success_metrics"],
+  "properties": {
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "architectural_layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer", "components"],
+        "properties": {
+          "layer": { "type": "string" },
+          "components": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            }
+          },
+          "considerations": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "reference_architectures": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["description", "components", "standards", "kpis"],
+        "properties": {
+          "description": { "type": "string" },
+          "components": { "type": "array", "items": { "type": "string" } },
+          "standards": { "type": "array", "items": { "type": "string" } },
+          "kpis": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "technical_stack": {
+      "type": "object",
+      "required": ["simulation_frameworks", "data_platforms", "orchestration", "security"],
+      "properties": {
+        "simulation_frameworks": { "type": "array", "items": { "type": "string" } },
+        "data_platforms": { "type": "array", "items": { "type": "string" } },
+        "orchestration": { "type": "array", "items": { "type": "string" } },
+        "security": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "deployment_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pattern", "description", "use_case", "pros", "cons"],
+        "properties": {
+          "pattern": { "type": "string" },
+          "description": { "type": "string" },
+          "use_case": { "type": "string" },
+          "pros": { "type": "string" },
+          "cons": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "validation_and_verification": { "type": "array", "items": { "type": "string" } },
+    "regulatory_alignment": {
+      "type": "object",
+      "properties": {
+        "nis2": { "type": "string" },
+        "critical_infrastructure_directive": { "type": "string" },
+        "ai_act": { "type": "string" },
+        "data_act": { "type": "string" }
+      },
+      "required": ["nis2", "critical_infrastructure_directive", "ai_act", "data_act"],
+      "additionalProperties": false
+    },
+    "cost_model": {
+      "type": "object",
+      "properties": {
+        "development": { "type": "array", "items": { "type": "string" } },
+        "operations": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["development", "operations"],
+      "additionalProperties": false
+    },
+    "success_metrics": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

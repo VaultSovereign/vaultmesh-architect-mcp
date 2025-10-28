@@ -1,0 +1,31 @@
+{
+  "name": "vaultmesh-architect-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for VaultMesh Architect",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "coverage": "c8 -r text -r html -r lcov -o coverage vitest run && c8 check-coverage --lines 85 --functions 85 --branches 80 --statements 85",
+    "cli:dryrun": "bash scripts/amend_constitution.sh --reason 'local dryrun' <<< n",
+    "coverage:open": "xdg-open coverage/index.html || open coverage/index.html || true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "c8": "^10.1.3",
+    "execa": "^9.6.0",
+    "vitest": "^4.0.4",
+    "yaml": "^2.8.1"
+  }
+}

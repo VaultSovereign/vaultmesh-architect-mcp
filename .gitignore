@@ -1,0 +1,28 @@
+# Node
+node_modules/
+coverage/
+dist/
+.nyc_output/
+npm-debug.log*
+yarn-error.log
+pnpm-debug.log
+
+# OS
+.DS_Store
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Editors
+.vscode/
+.idea/
+
+# Artifacts
+scripts/.amend/
+tmp/
+tmp-*/
+**/tmp-e2e/
+*.tsbuildinfo
+

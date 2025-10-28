@@ -1,0 +1,13 @@
+{
+  "reporter": ["text", "html", "lcov"],
+  "exclude": [
+    "tests/**",
+    "**/*.spec.*",
+    "README.md",
+    ".github/**",
+    "coverage/**"
+  ],
+  "all": false,
+  "src": ["."]
+}
+
