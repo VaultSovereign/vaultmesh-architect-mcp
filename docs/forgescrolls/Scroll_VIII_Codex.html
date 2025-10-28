@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scroll VIII · VaultMesh vs Human Record</title>
+  <style>body{background:#1a1612;color:#FFD700;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial} .box{border:2px solid #DAA520;padding:16px;margin:12px;border-radius:8px} code,pre{color:#DAA520}</style>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('live-psi');
+    let base = 0.87;
+    function tick(){
+      const v = (base + (Math.random()-0.5)*0.1).toFixed(2);
+      el.textContent = 'Ψ = ' + v;
+    }
+    tick(); setInterval(tick, 2000);
+  });
+  </script>
+  </head>
+  <body>
+    <h1>Scroll VIII · VaultMesh vs The Human Record</h1>
+    <div class="box">
+      <strong>Root:</strong>
+      <code>5c74ae7088119be0f36c9431e850d945776237ed7ba15a901cfe0c4764dadca6</code>
+      <br/>
+      <strong>Charter:</strong>
+      <code>governance/lawchain/2025-10-28T02:34:43.707Z-charter-2e6f5c1b.json</code>
+      <br/>
+      <strong>Release:</strong>
+      <code>governance/lawchain/2025-10-28T02:37:24.945Z-release-b0946315.json</code>
+      <br/>
+      <strong>Receipt:</strong>
+      <code>governance/anchor-receipts/2025-10-28T02:37:30.358Z-anchor-5c74ae708811.json</code>
+    </div>
+    <div class="box">
+      <div id="live-psi" style="font-size:1.5rem"></div>
+      <small>Live Ψ fluctuation (demo)</small>
+    </div>
+    <div class="box">
+      <h3>Proof Chain</h3>
+      <pre>initialize → propose_charter → approve_charter → record_release → multi_anchor → verify</pre>
+    </div>
+  </body>
+</html>

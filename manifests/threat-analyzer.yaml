@@ -1,0 +1,35 @@
+# VaultMesh Subsystem: threat-analyzer
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: threat-analyzer
+  labels:
+    vaultmesh.org/organ: automation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: threat-analyzer
+  template:
+    metadata:
+      labels:
+        app: threat-analyzer
+        vaultmesh.org/organ: automation
+    spec:
+      containers:
+        - name: threat-analyzer
+          image: ghcr.io/example/threat-analyzer:latest
+          env:
+            - name: VM_REALM
+              value: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: threat-analyzer
+spec:
+  selector:
+    app: threat-analyzer
+  ports:
+    - port: 80
+      targetPort: 8080

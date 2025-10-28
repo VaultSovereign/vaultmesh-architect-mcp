@@ -1,0 +1,13 @@
+{
+  "cap": {
+    "jti": "517731a251a9f65b",
+    "sub": "treasury-monitoring-bot",
+    "iat": 1761615788,
+    "exp": 1762220588,
+    "scopes": [
+      "treasury:read"
+    ]
+  },
+  "signature": "D/ycEkM+vNeDcYcYPdf2C/c0ekEcqdnpss1OUHAgc3sYtKPZHxH8MosrW9m2r3+EqCl5j38fWr6fUEtsYlVfCA==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}

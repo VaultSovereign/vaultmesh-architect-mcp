@@ -1,0 +1,57 @@
+name: psi-coherence-monitor
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+      - name: Compute Live Ψ
+        id: psi
+        run: |
+          OUT=$(npm run -s psi:live)
+          echo "$OUT" | tee psi.json
+          VAL=$(node -e "console.log(JSON.parse(require('fs').readFileSync('psi.json','utf8')).psi)")
+          echo "psi=$VAL" >> $GITHUB_OUTPUT
+          echo "\n### Ψ Coherence\n\nValue: $VAL" >> $GITHUB_STEP_SUMMARY
+      - name: Check Ψ endpoint
+        run: |
+          # start the lightweight server in background
+          npm run psi:server &
+          SERVER_PID=$!
+          sleep 3
+          echo "↪ Querying local Ψ endpoint..."
+          curl -s http://localhost:9124/healthz || (echo "❌ healthz failed" && kill $SERVER_PID && exit 1)
+          curl -s http://localhost:9124/query?max=3 | tee psi_endpoint.json
+          VAL=$(jq -r '.data.psi.psi' psi_endpoint.json)
+          PHASE=$(jq -r '.data.psi.phase' psi_endpoint.json)
+          echo "\n### Ψ Endpoint\n\nValue: ${VAL}\n\nPhase: ${PHASE}" >> $GITHUB_STEP_SUMMARY
+          kill $SERVER_PID
+      - name: Alert (Slack)
+        if: ${{ steps.psi.outputs.psi && fromJSON('[''0'',''0'']')[0] == '0' }}
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          if [ -n "$SLACK_WEBHOOK" ]; then
+            VAL="${{ steps.psi.outputs.psi }}"
+            python3 - << 'PY'
+import json,os,urllib.request
+url=os.environ.get('SLACK_WEBHOOK','')
+val=os.environ.get('VAL','0')
+if url and float(val) < 0.3:
+  data=json.dumps({"text": f"Ψ CRITICAL: {val}"}).encode('utf-8')
+  req=urllib.request.Request(url, data=data, headers={'Content-Type':'application/json'})
+  try:
+    urllib.request.urlopen(req)
+  except Exception as e:
+    print(e)
+PY
+          fi

@@ -1,0 +1,16 @@
+{
+  "type": "incident",
+  "threat": "capability-breach",
+  "realm": "crypto-treasury",
+  "autoRemediate": true,
+  "lastGoodRoot": "987b6e27f8c8123b6602b2548479749ee48d7972318e344b54816d88a1e8cd2e",
+  "transmutation": {
+    "kind": "rate_limit",
+    "signature": "tem-capability-breach-02ac457d841d998a",
+    "parameters": {
+      "realm": "crypto-treasury",
+      "mode": "auto"
+    }
+  },
+  "timestamp": "2025-10-28T01:49:49.682Z"
+}

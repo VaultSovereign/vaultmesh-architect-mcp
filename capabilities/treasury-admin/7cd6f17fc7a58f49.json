@@ -1,0 +1,17 @@
+{
+  "cap": {
+    "jti": "7cd6f17fc7a58f49",
+    "sub": "treasury-admin",
+    "iat": 1761615764,
+    "exp": 1761702164,
+    "scopes": [
+      "treasury:read",
+      "treasury:write",
+      "treasury:transfer",
+      "treasury:audit",
+      "treasury:configure"
+    ]
+  },
+  "signature": "rrlsJXvurGai7qKWUGoNyn9qLRlt3KR8WPF4Nxzine1WI+q6rfj7CN8Vzx8sdokZIT6kE8GLvYtExZHsyNr6AA==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}

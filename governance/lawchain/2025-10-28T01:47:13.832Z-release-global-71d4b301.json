@@ -1,0 +1,11 @@
+{
+  "type": "release",
+  "timestamp": "2025-10-28T01:47:13.831Z",
+  "payload": {
+    "realm": "global",
+    "from": "Nigredo",
+    "to": "Albedo"
+  },
+  "signature": "5HlJgjOq8S5d9sjpWJvMu6TTy92qmSu1vgx3qQ1YoY1eN2TaLc4ersBJKFeyG0/SGNCxdy0ERDAONIF9oAFIBg==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}

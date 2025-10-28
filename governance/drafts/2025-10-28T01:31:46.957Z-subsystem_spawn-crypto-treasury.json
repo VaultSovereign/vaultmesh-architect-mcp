@@ -1,0 +1,7 @@
+{
+  "type": "subsystem_spawn",
+  "name": "crypto-treasury",
+  "organ": "treasury",
+  "timestamp": "2025-10-28T01:31:46.957Z",
+  "manifest": "manifests/crypto-treasury.yaml"
+}

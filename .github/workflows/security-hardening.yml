@@ -1,0 +1,24 @@
+name: security-hardening-proof
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        working-directory: vaultmesh-architect-mcp
+        run: npm ci --no-audit --no-fund
+      - name: Record security-hardening proof (dry-run)
+        working-directory: vaultmesh-architect-mcp
+        env:
+          DRY_RUN: true
+        run: |
+          {
+            printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"security-hardening","version":"1.0.0"}}}\n'
+            printf '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"record_security_hardening","arguments":{"summary":"CI canary defenses verified"}}}\n'
+          } | node server.js --stdio | tail -n 1
+

@@ -1,0 +1,35 @@
+# VaultMesh Subsystem: crypto-treasury
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crypto-treasury
+  labels:
+    vaultmesh.org/organ: treasury
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crypto-treasury
+  template:
+    metadata:
+      labels:
+        app: crypto-treasury
+        vaultmesh.org/organ: treasury
+    spec:
+      containers:
+        - name: crypto-treasury
+          image: ghcr.io/example/crypto-treasury:latest
+          env:
+            - name: VM_REALM
+              value: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crypto-treasury
+spec:
+  selector:
+    app: crypto-treasury
+  ports:
+    - port: 80
+      targetPort: 8080

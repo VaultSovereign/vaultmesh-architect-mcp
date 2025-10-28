@@ -1,0 +1,16 @@
+{
+  "type": "incident",
+  "threat": "integrity-violation",
+  "realm": "default",
+  "autoRemediate": false,
+  "lastGoodRoot": "d21bc8a8348725ce3ea56e6bc311f2a0cd15b46e38cac1c88893e9146483ebdb",
+  "transmutation": {
+    "kind": "rate_limit",
+    "signature": "tem-integrity-violation-d2f3ba6e26ed90a2",
+    "parameters": {
+      "realm": "default",
+      "mode": "advisory"
+    }
+  },
+  "timestamp": "2025-10-28T01:48:05.022Z"
+}

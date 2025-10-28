@@ -1,0 +1,16 @@
+{
+  "type": "incident",
+  "threat": "injection",
+  "realm": "default",
+  "autoRemediate": true,
+  "lastGoodRoot": "d21bc8a8348725ce3ea56e6bc311f2a0cd15b46e38cac1c88893e9146483ebdb",
+  "transmutation": {
+    "kind": "rate_limit",
+    "signature": "tem-injection-0d520f8e72036284",
+    "parameters": {
+      "realm": "default",
+      "mode": "auto"
+    }
+  },
+  "timestamp": "2025-10-28T01:49:36.623Z"
+}

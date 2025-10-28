@@ -1,0 +1,15 @@
+{
+  "type": "charter",
+  "timestamp": "2025-10-28T02:34:43.703Z",
+  "merkle_root": "b129122f82070d6c85e24a82f085f67e68516617b9f8fb27e9f1f0d1b40e1fba",
+  "attestors": [],
+  "payload": {
+    "specPath": "specs/vaultmesh_mcp_digital_twin.yaml",
+    "proposal_id": "1761618750735-deb753b5",
+    "ratified_by": [
+      "cli-operator"
+    ]
+  },
+  "signature": "XR++1HPiA8Jy8sgbvk4sRbUdvdODW3fC1ikIl7fxlY8g7+RKZSwwgrnbUCTXR4DR5Gwb/BDnWc68ARIu3mvKCQ==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAfnk1HKL5HZeogAuEQPtVTNAIsTxKO7p7zMYUbwLykS0=\n-----END PUBLIC KEY-----\n"
+}

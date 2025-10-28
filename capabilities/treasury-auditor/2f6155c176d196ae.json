@@ -1,0 +1,14 @@
+{
+  "cap": {
+    "jti": "2f6155c176d196ae",
+    "sub": "treasury-auditor",
+    "iat": 1761615769,
+    "exp": 1764207769,
+    "scopes": [
+      "treasury:read",
+      "treasury:audit"
+    ]
+  },
+  "signature": "slpLN47khCx4SBYjEowyIEpJ+cBeWhFMfFaTHk3KdqmLkmeYaTVBu+5ZT2m1uFAH/91sH3Te066m7YrEtVBGCg==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVtcoNdufTwJdPcqEiCUbI39X4N47SBfDMDP4l743dD8=\n-----END PUBLIC KEY-----\n"
+}
