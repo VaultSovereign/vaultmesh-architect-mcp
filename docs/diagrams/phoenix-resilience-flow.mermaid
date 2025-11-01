@@ -1,0 +1,50 @@
+sequenceDiagram
+    participant Monitor as Monitoring System
+    participant Phoenix as Phoenix Protocol
+    participant Server as MCP Server
+    participant Tem as Tem Engine
+    participant LAWCHAIN
+    participant System as Target System
+    
+    Note over Monitor,System: Threat Detection & Auto-Remediation
+    
+    Monitor->>Phoenix: Canary event detected
+    Note over Monitor: Anomaly: High error rate,<br/>latency spike, etc.
+    
+    Phoenix->>Server: get_phase("security")
+    Server-->>Phoenix: Current phase: Nigredo
+    
+    Phoenix->>Server: invoke_tem("dos_attack", "web", autoRemediate=true)
+    
+    Server->>Tem: Analyze threat
+    Tem->>Tem: Threat transmutation<br/>(DOS → Rate Limiting)
+    Tem-->>Server: Defensive capability
+    
+    Server->>LAWCHAIN: Log incident
+    LAWCHAIN-->>Server: Incident ID
+    
+    alt Auto-Remediate Enabled
+        Server->>System: Apply defense
+        Note over System: - Enable rate limiting<br/>- Scale up pods<br/>- Update firewall rules
+        System-->>Server: Defense applied
+        Server->>LAWCHAIN: Log remediation
+    else Manual Review
+        Server-->>Phoenix: Suggested mitigation
+        Phoenix-->>Monitor: Alert operator
+    end
+    
+    Server->>Phoenix: evolve_phase("security", "defend")
+    Phoenix->>Server: Phase advanced: Albedo
+    
+    Server->>LAWCHAIN: Record phase change
+    
+    Phoenix->>Monitor: Monitor effectiveness
+    
+    loop Continuous Monitoring
+        Monitor->>Phoenix: Health check
+        Phoenix->>Server: get_coherence_state()
+        Server-->>Phoenix: Ψ-field metrics
+        Phoenix-->>Monitor: System resilience: 0.87
+    end
+    
+    Note over Monitor,System: System self-heals and<br/>maintains audit trail

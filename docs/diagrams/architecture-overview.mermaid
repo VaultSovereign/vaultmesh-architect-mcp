@@ -1,0 +1,73 @@
+graph TB
+    subgraph "MCP Client Layer"
+        Claude[Claude Desktop]
+        IDE[VS Code / IDE]
+        Custom[Custom MCP Client]
+    end
+    
+    subgraph "VaultMesh Architect MCP Server"
+        Server[MCP Server<br/>JSON-RPC over stdio]
+        Tools[MCP Tools]
+        Resources[MCP Resources]
+        Prompts[MCP Prompts]
+    end
+    
+    subgraph "Governance Layer"
+        Constitution[Digital Constitution<br/>YAML Spec]
+        LAWCHAIN[LAWCHAIN Ledger<br/>Ed25519 Signed]
+        Capabilities[Capability System<br/>JWT-like Tokens]
+    end
+    
+    subgraph "Architecture Layer"
+        K8s[K8s Manifests<br/>Generator]
+        Rust[Rust Crate<br/>Scaffolder]
+        Merkle[Merkle Root<br/>Computation]
+    end
+    
+    subgraph "Security Layer"
+        Tem[Tem Engine<br/>Threat → Defense]
+        Phoenix[Phoenix Protocol<br/>Resilience Monitor]
+        Mask[Secret Masking<br/>Filter]
+    end
+    
+    subgraph "Anchoring Layer"
+        RFC3161[RFC 3161<br/>Time Stamp Authority]
+        Ethereum[Ethereum<br/>Smart Contract]
+        Bitcoin[Bitcoin<br/>OP_RETURN]
+    end
+    
+    Claude --> Server
+    IDE --> Server
+    Custom --> Server
+    
+    Server --> Tools
+    Server --> Resources
+    Server --> Prompts
+    
+    Tools --> Constitution
+    Tools --> LAWCHAIN
+    Tools --> Capabilities
+    
+    Tools --> K8s
+    Tools --> Rust
+    Tools --> Merkle
+    
+    Tools --> Tem
+    Tools --> Phoenix
+    Server --> Mask
+    
+    Tools --> RFC3161
+    Tools --> Ethereum
+    Tools --> Bitcoin
+    
+    Constitution -.governs.-> Server
+    LAWCHAIN -.audits.-> Tools
+    Phoenix -.monitors.-> Server
+    Tem -.defends.-> Server
+    
+    style Server fill:#4a9eff,stroke:#333,stroke-width:3px
+    style LAWCHAIN fill:#ff9f40,stroke:#333,stroke-width:2px
+    style Constitution fill:#ffcd56,stroke:#333,stroke-width:2px
+    style Capabilities fill:#ff6384,stroke:#333,stroke-width:2px
+    style Phoenix fill:#36a2eb,stroke:#333,stroke-width:2px
+    style Tem fill:#9966ff,stroke:#333,stroke-width:2px

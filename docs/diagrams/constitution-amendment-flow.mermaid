@@ -1,0 +1,52 @@
+sequenceDiagram
+    participant User
+    participant Client as MCP Client
+    participant Server as MCP Server
+    participant LAWCHAIN
+    participant Chain as Multi-Chain<br/>(RFC3161/ETH/BTC)
+    
+    Note over User,Chain: Constitution Amendment Flow
+    
+    User->>Client: Request constitution
+    Client->>Server: resources/read("spec://digital-twin/constitution")
+    Server-->>Client: Current constitution YAML
+    Client-->>User: Display constitution
+    
+    User->>Client: Propose amendment
+    Note over User: Edit constitution in editor
+    
+    Client->>Server: propose_charter(new_yaml, "reason")
+    Server->>LAWCHAIN: Create proposal entry
+    LAWCHAIN-->>Server: Proposal ID + signature
+    Server-->>Client: Proposal created
+    Client-->>User: Show proposal ID
+    
+    User->>Client: Approve amendment
+    Client->>Server: approve_charter(proposal_id, "approver", apply=true)
+    Server->>LAWCHAIN: Create charter entry
+    LAWCHAIN-->>Server: Charter signature
+    Server->>Server: Update constitution file
+    Server-->>Client: Charter approved
+    
+    User->>Client: Anchor decision
+    Client->>Server: compute_merkle_root()
+    Server->>Server: Generate hash manifest
+    Server-->>Client: Merkle root computed
+    
+    Client->>Server: multi_anchor(manifest_path)
+    
+    par Parallel Anchoring
+        Server->>Chain: Anchor to RFC 3161
+        Server->>Chain: Anchor to Ethereum
+        Server->>Chain: Anchor to Bitcoin
+    end
+    
+    Chain-->>Server: RFC 3161 receipt
+    Chain-->>Server: Ethereum receipt
+    Chain-->>Server: Bitcoin receipt
+    
+    Server->>LAWCHAIN: Record anchor proof
+    Server-->>Client: All receipts + proof
+    Client-->>User: Amendment complete & anchored
+    
+    Note over User,Chain: Constitution change is now<br/>immutable & verifiable
