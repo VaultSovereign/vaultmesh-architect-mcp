@@ -37,6 +37,3 @@ tmp-*/
 *.tmp
 .docusaurus/
 
-# Public hardening working directory
-public_hardening/
-
