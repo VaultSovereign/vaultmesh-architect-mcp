@@ -99,7 +99,7 @@ Add to your Claude Desktop configuration:
 ### Generate a New Subsystem
 ```javascript
 // Spawn a new microservice with governance tracking
-spawn_subsystem("auth-service", "Heart", rust: true)
+spawn_subsystem("auth-service", "Heart", true)
 // Creates: k8s manifest + Rust crate + LAWCHAIN entry
 ```
 

@@ -149,7 +149,7 @@ else
     check_warn "README might be missing Quick Start"
 fi
 
-if grep -q "NOT in this repository\|NOT in This Repository\|What's NOT here" README.md; then
+if grep -qi "what's not" README.md; then
     check_pass "README clarifies what's not included"
 else
     check_warn "README should clarify operational data is not included"
