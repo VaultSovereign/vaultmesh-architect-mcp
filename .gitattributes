@@ -1,0 +1,52 @@
+# Normalize line endings to LF for all text files
+* text=auto eol=lf
+
+# Explicitly declare text files
+*.js text
+*.mjs text
+*.json text
+*.md text
+*.yml text
+*.yaml text
+*.sh text eol=lf
+
+# Documentation files
+docs/** text
+*.markdown text
+
+# Diagrams and posters - treat as text if they're markup-based
+*.mmd text
+*.mermaid text
+*.puml text
+*.plantuml text
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.ico binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+
+# Mark documentation directories for GitHub Linguist
+docs/posters/** linguist-documentation
+docs/diagrams/** linguist-detectable
+*.md linguist-documentation
+governance/** linguist-documentation
+
+# Export ignore (files to exclude from git archive)
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore
+tests/ export-ignore
+coverage/ export-ignore
+*.test.* export-ignore
+*.spec.* export-ignore
+vitest.config.* export-ignore
+.c8rc.json export-ignore

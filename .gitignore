@@ -2,13 +2,16 @@
 node_modules/
 coverage/
 dist/
+out/
 .nyc_output/
 npm-debug.log*
-yarn-error.log
-pnpm-debug.log
+yarn-error.log*
+pnpm-debug.log*
 
 # OS
 .DS_Store
+Thumbs.db
+*.log
 
 # Env
 .env
@@ -18,6 +21,9 @@ pnpm-debug.log
 # Editors
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
 # Artifacts
 scripts/.amend/
@@ -25,4 +31,9 @@ tmp/
 tmp-*/
 **/tmp-e2e/
 *.tsbuildinfo
+
+# Documentation builds
+*.drawio.bkp
+*.tmp
+.docusaurus/
 
