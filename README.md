@@ -1,266 +1,247 @@
-VaultMesh Architect MCP Server
-================================
+# VaultMesh Architect MCP
 
 [![Tests](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml)
-[![Constitution CLI Dry-Run](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml)
-[![Release Proof](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml)
-[![Phoenix-Resilience Verification](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml)
+[![Link Check](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/link-check.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/link-check.yml)
+[![Documentation](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/verify-docs.yml/badge.svg)](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/verify-docs.yml)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
-Constitution CLI Dry-Run: verifies that the terminal amendment workflow remains operable and JSON-RPC output parses correctly on every push.
+> A Model Context Protocol (MCP) server that transforms AI-assisted development into auditable, governable, and secure architecture-as-code.
 
-Governance Checks
------------------
+## What is VaultMesh Architect?
 
-| Check       | Purpose                 | Badge |
-| ----------- | ----------------------- | ----- |
-| CI Tests    | Unit + E2E validation   | ![Tests](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml/badge.svg) |
-| CLI Dry-Run | Amendment ritual canary | ![CLI Dry-Run](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml/badge.svg) |
-| Release Proof | Anchors artifact hashes | ![Release Proof](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml/badge.svg) |
-| Phoenix Verification | Cross-runtime parity + LAWCHAIN proof health | ![Phoenix Verification](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml/badge.svg) |
+VaultMesh Architect is an MCP server that exposes subsystem orchestration, multi-chain anchoring, governance workflows, and capability management as explicit, auditable tools. Every architectural decision is cryptographically signed and can be anchored across multiple blockchains for tamper-proof verification.
 
-An MCP server that exposes the VaultMesh-Architect skill as explicit, auditable tools. It supports subsystem spawning, multi-chain anchoring (dry-run), Tem invocation, LAWCHAIN governance entries, capability issuance, CRDT realm helpers, and alchemical phase orchestration.
+**Key Features:**
+- 🏛️ **Constitution-Driven Governance** - Formal, auditable policy framework
+- 🔐 **Capability-Based Security** - Fine-grained, revocable access control
+- ⚓ **Multi-Chain Anchoring** - RFC 3161, Ethereum, and Bitcoin timestamping
+- 🔍 **Immutable Audit Trail** - LAWCHAIN governance ledger
+- 🛡️ **Threat Modeling Integration** - Automated defensive capability generation
+- 🔄 **Phoenix Resilience** - Self-healing system monitoring
 
-Status: initial scaffold with safe defaults and dry-run behavior.
+## Architecture
 
-Quick Start
------------
-
-1) Install dependencies
-
-   - Requires Node.js 18+
-   - From `vaultmesh-architect-mcp/`:
-
-   ```bash
-   npm install
-   ```
-
-2) Run as MCP server (stdio)
-
-   ```bash
-   npm start -- --stdio
-   ```
-
-3) Configure your MCP client
-
-   Example (Claude Desktop JSON config snippet):
-
-   ```json
-   {
-     "mcpServers": {
-       "vaultmesh-architect": {
-         "command": "node",
-         "args": ["server.js", "--stdio"],
-         "cwd": "${HOME}/vaultmesh-architect-mcp"
-       }
-     }
-   }
-   ```
-
-Heartbeat Logging (Optional)
-----------------------------
-
-- To get a visible signal in your terminal without breaking stdio, enable a stderr heartbeat:
-
-  ```bash
-  # flag-based
-  node server.js --stdio --heartbeat
-
-  # or via env
-  MCP_HEARTBEAT=1 MCP_HEARTBEAT_MS=15000 node server.js --stdio
-  ```
-
-- Output appears on stderr as:
-  - `vaultmesh-architect: listening on stdio (dry_run=...)`
-  - `vaultmesh-architect: heartbeat` every `MCP_HEARTBEAT_MS` ms (default 30000)
-
-Tests
------
-
-- Install dev deps and run tests:
-
-  ```bash
-  npm test
-  ```
-
-- The test harness runs the server as a black box over stdio (JSON-RPC) and writes artifacts under a temp dir via `VM_WORKDIR`.
-
-Coverage
---------
-
-- Generate coverage (c8, includes subprocesses) and open report:
-
-  ```bash
-  npm run coverage
-  npm run coverage:open
-  ```
-
-- Branch/line thresholds are enforced (lines 85, funcs 85, branches 80, statements 85). CI uploads `coverage/` as an artifact.
-
-Golden Manifest Snapshot
-------------------------
-
-- `tests/hash-manifest.spec.mjs` snapshots the file ordering and Merkle root from `compute_merkle_root` using a deterministic fixture.
-- Snapshot lives at `tests/__snapshots__/hash-manifest.spec.mjs.snap` and will fail on ordering regressions.
-
-Constitution Resources
-----------------------
-
-Every VaultMesh deployment carries its own auditable constitution, available as a first-class MCP resource. Any amendment is ratified through a signed LAWCHAIN “charter” entry and can be anchored across chains.
-
-Examples (JSON-RPC over stdio):
-
-```bash
-# list available resources
-printf '{"jsonrpc":"2.0","method":"resources/list","id":1}\n' | node server.js --stdio
-
-# read the constitution
-printf '{"jsonrpc":"2.0","method":"resources/read","params":{"uri":"spec://digital-twin/constitution"},"id":2}\n' | node server.js --stdio
-
-# sign and anchor it (sign only; anchor via tools/multi_anchor)
-printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"sign_constitution","arguments":{"note":"v1.0.0 ratified"}},"id":3}\n' | node server.js --stdio
+```mermaid
+graph LR
+    A[MCP Client] -->|JSON-RPC| B[MCP Server]
+    B --> C[LAWCHAIN]
+    B --> D[Multi-Chain Anchors]
+    B --> E[Capabilities]
+    B --> F[Constitution]
+    C --> G[Audit Trail]
+    D --> H[RFC3161/ETH/BTC]
 ```
 
-Amendment Flow (Optional Governance)
-------------------------------------
+**[📖 Read Full Architecture Overview →](docs/overview.md)**
 
-- Propose an amendment with a full replacement YAML (staged, requires approval):
+## Who is This For?
 
-  ```bash
-  printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"propose_charter","arguments":{"replacement_yaml":"...new YAML...","note":"amendment 1"}},"id":4}\n' | node server.js --stdio
-  ```
+### Builders
+- Cloud architects designing secure, auditable systems
+- DevOps engineers implementing governance-as-code
+- Security engineers integrating threat modeling
 
-- Approve a proposal and finalize the charter (with or without applying the YAML change):
+### Reviewers
+- Auditors verifying architectural decisions
+- Compliance officers tracking policy adherence
+- Security researchers analyzing system designs
 
-  ```bash
-  printf '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"approve_charter","arguments":{"proposal_id":"<id>","approver":"dao:alice","apply_update":true}},"id":5}\n' | node server.js --stdio
-  ```
+### Partners
+- Organizations requiring provable architecture
+- Teams collaborating on sensitive infrastructure
+- Projects needing immutable decision records
 
-- Anchor receipts as usual via `tools/compute_merkle_root` and `tools/multi_anchor`.
+## Quick Start
 
-Terminal Workflow
------------------
+### Prerequisites
+- Node.js 18 or higher
+- npm 9 or higher
 
-Amend the constitution from a terminal (mirrors the MCP prompt flow):
-
-```bash
-bash scripts/amend_constitution.sh --reason "update K8s orchestration policy" --apply
-```
-
-The script fetches -> opens your editor -> diffs -> proposes -> optionally approves, and records LAWCHAIN entries along the way.
-
-Verification
-------------
-
-Verify a tagged release by confirming tarball checksum and matching LAWCHAIN/receipt proofs:
+### Installation
 
 ```bash
-bash scripts/verify_release.sh v1.0.0
+# Clone the repository
+git clone https://github.com/VaultSovereign/vaultmesh-architect-mcp.git
+cd vaultmesh-architect-mcp
+
+# Install dependencies
+npm install
+
+# Run tests to verify setup
+npm test
 ```
 
-This downloads the tarball + checksums, recomputes SHA-256, and ensures the hash appears in LAWCHAIN entries or anchor receipts.
-
-Verify a Release + Receipts
----------------------------
+### Running the Server
 
 ```bash
-bash scripts/verify_release.sh v1.0.0 --lawchain governance/lawchain --receipts governance/anchor-receipts
+# Start MCP server on stdio
+npm start -- --stdio
 ```
 
-This verifies checksum, confirms LAWCHAIN proof, and prints RFC-3161 / ETH / BTC receipt statuses for the artifact (works in both dry-run and live modes).
+### Configure with Claude Desktop
 
-Phoenix Capability Integration
-------------------------------
+Add to your Claude Desktop configuration:
 
-- Manifest: `governance/capabilities/phoenix_resilience_protocol.md`
-- Seal + token + anchor:
+```json
+{
+  "mcpServers": {
+    "vaultmesh-architect": {
+      "command": "node",
+      "args": ["server.js", "--stdio"],
+      "cwd": "/path/to/vaultmesh-architect-mcp"
+    }
+  }
+}
+```
 
-  ```bash
-  npm run capability:seal
-  ```
+## Example Workflows
 
-- Tem plugin stubs (for integration into your Tem engine):
-  - Python: `tem/python/plugins/phoenix_resilience.py`
-  - Rust: `tem/rust/phoenix_resilience/` (crate with `TemPlugin` trait and `PhoenixResilience`)
+### Generate a New Subsystem
+```javascript
+// Spawn a new microservice with governance tracking
+spawn_subsystem("auth-service", "Heart", rust: true)
+// Creates: k8s manifest + Rust crate + LAWCHAIN entry
+```
 
-- Config + schema:
-  - YAML: `config/phoenix_resilience.yaml`
-  - JSON Schema: `config/schema/phoenix_resilience.schema.yaml`
+### Anchor an Architecture Decision
+```javascript
+// Compute repository hash manifest
+compute_merkle_root(root: ".", out: "manifests/hash-manifest.json")
 
-A typical Tem loop calls `next_phase(current_phase, ψ, PE)` and applies mitigations from `on_incident()` when canary events are simulated.
+// Anchor to multiple chains
+multi_anchor(manifestPath: "manifests/hash-manifest.json")
+// Returns: RFC3161 + Ethereum + Bitcoin receipts
+```
 
-Live Coherence State
---------------------
+### Amend the Constitution
+```bash
+# Interactive amendment workflow
+bash scripts/amend_constitution.sh --reason "update security policy" --apply
+```
 
-![Ψ-field](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/VaultSovereign/vaultmesh-architect-mcp/main/.badges/phoenix_coherence.json)
+### Issue a Capability
+```javascript
+// Issue time-limited, signed capability
+issue_capability(
+  subject: "service:auth",
+  scopes: ["read:users", "write:sessions"],
+  ttlSeconds: 3600
+)
+```
 
-The badge JSON is committed to `.badges/phoenix_coherence.json` by the Phoenix verification workflow and updates after each successful run.
-Each badge update is cryptographically anchored via LAWCHAIN (receipts under `governance/anchor-receipts/`).
+## What's NOT in This Repository
 
-Working Directory Override
---------------------------
+This is an **architecture and documentation** repository focused on design, specifications, and governance frameworks.
 
-- To direct outputs to a specific path without changing the process CWD, set `VM_WORKDIR`:
+**You will NOT find here:**
+- Production secrets or credentials
+- Infrastructure configuration files
+- Private operational data
+- Internal IP addresses or hostnames
+- Live system endpoints
 
-  ```bash
-  VM_WORKDIR=/path/to/repo node server.js --stdio
-  ```
+For operational deployment, see our private infrastructure repository (access restricted).
 
-Environment Variables
----------------------
+## Documentation
 
-- `DRY_RUN` (default: `true`) — if `true`, anchoring returns simulated receipts, no chain calls.
-- `RFC3161_URL` — TSA endpoint (only used if `DRY_RUN=false`).
-- `ETH_RPC_URL` — Ethereum RPC URL (only used if `DRY_RUN=false`).
-- `BTC_RPC_URL` — Bitcoin RPC URL (only used if `DRY_RUN=false`).
-- `LAWCHAIN_PRIVATE_KEY_PEM` — Ed25519 PEM for signing LAWCHAIN entries and capabilities. If absent, an ephemeral key is generated per process.
+- **[Architecture Overview](docs/overview.md)** - System design and components
+- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute
+- **[Security Policy](SECURITY.md)** - Reporting vulnerabilities
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** - Community guidelines
+- **[Changelog](CHANGELOG.md)** - Version history
 
-Tooling Overview
-----------------
+## Core Concepts
 
-- spawn_subsystem(name, organType, rust=true)
-  - Generates minimal k8s manifest and Rust crate skeleton under `manifests/` and `crates/`.
-  - Emits a LAWCHAIN `subsystem_spawn` draft.
+### LAWCHAIN
+An immutable governance ledger that records all architectural decisions, constitution amendments, and capability issuances with Ed25519 signatures.
 
-- compute_merkle_root(root=".", out="manifests/hash-manifest.json")
-  - Computes a repository hash manifest and Merkle-like root (SHA-256 based placeholder).
+### Constitution
+A formal YAML document defining system policies, which can only be amended through a structured approval process with multi-chain anchoring.
 
-- multi_anchor(manifestPath)
-  - Orchestrates RFC3161/ETH/BTC anchoring. Honors `DRY_RUN`.
-  - Writes receipts in `governance/anchor-receipts/` and returns a consolidated proof object.
+### Capabilities
+Cryptographically signed, time-limited tokens that grant specific permissions, replacing traditional role-based access control.
 
-- invoke_tem(threatType, realm, autoRemediate=false, lastGoodRoot?)
-  - Transmutes threats into defensive capabilities. Writes an incident log and returns a suggested defense.
+### Multi-Chain Anchoring
+Artifacts are timestamped across RFC 3161 TSA, Ethereum, and Bitcoin for maximum tamper resistance and verifiability.
 
-- generate_lawchain_entry(type, payload)
-  - Creates a signed LAWCHAIN entry in `governance/lawchain/`.
+### Tem Integration
+Threat modeling framework that transmutes security threats into defensive capabilities with automated remediation.
 
-- issue_capability(subject, scopes, ttlSeconds)
-  - Issues a signed, revocable capability (Ed25519). Returns a token-like object.
+## Security
 
-- get_phase(realm) / evolve_phase(realm, action)
-  - Reads or advances the alchemical cycle, enforcing Nigredo→Albedo→Citrinitas→Rubedo order.
+### Safe Defaults
+- ✅ `DRY_RUN=true` by default (no actual chain interactions)
+- ✅ Ephemeral keys for development
+- ✅ Secret masking in all outputs
+- ✅ Stdio-only communication (no network exposure)
 
-Security Defaults
------------------
+### Reporting Security Issues
+Please see our [Security Policy](SECURITY.md) for responsible disclosure guidelines.
 
-- Redacts secret-like values in tool outputs (unless explicitly requested).
-- Short-lived in-memory keys if `LAWCHAIN_PRIVATE_KEY_PEM` is not provided.
-- Writes artifacts to local dirs under the server CWD; no network calls when `DRY_RUN=true`.
+**Do NOT open public issues for security vulnerabilities.**
 
-Notes
------
-
-- Hash/Merkle calculations use SHA-256 placeholder. Swap in BLAKE3 as desired.
-- Anchoring implementations are stubbed unless `DRY_RUN=false` and endpoints are set.
-- This server is intentionally conservative and auditable.
-
-Sanity Check (JSON-RPC init)
-----------------------------
-
-You can simulate a minimal MCP handshake from the shell:
+## Development
 
 ```bash
-printf '{"jsonrpc":"2.0","method":"initialize","params":{},"id":1}\n' | node server.js --stdio
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report
+npm run coverage
+
+# View coverage
+npm run coverage:open
 ```
 
-You should see a JSON response on stdout confirming initialization.
+## Governance Checks
+
+| Check | Purpose | Badge |
+|-------|---------|-------|
+| Tests | Unit + E2E validation | ![Tests](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/mcp-tests.yml/badge.svg) |
+| CLI Dry-Run | Amendment ritual canary | ![CLI](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/cli-dryrun.yml/badge.svg) |
+| Release Proof | Artifact hash anchoring | ![Release](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/release-proof.yml/badge.svg) |
+| Phoenix Verification | Resilience health checks | ![Phoenix](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/phoenix-verify.yml/badge.svg) |
+| Link Check | Documentation hygiene | ![Links](https://github.com/VaultSovereign/vaultmesh-architect-mcp/actions/workflows/link-check.yml/badge.svg) |
+
+## Roadmap
+
+- [ ] Web UI for constitution management
+- [ ] Additional blockchain anchoring options (Solana, Cosmos)
+- [ ] Enhanced Tem threat library
+- [ ] GraphQL query interface for LAWCHAIN
+- [ ] Integration with popular CI/CD platforms
+- [ ] Docker container distribution
+
+See [GitHub Issues](https://github.com/VaultSovereign/vaultmesh-architect-mcp/issues) for detailed planning.
+
+## Contributing
+
+We welcome contributions! Please see:
+1. [Contributing Guide](CONTRIBUTING.md) for development workflow
+2. [Code of Conduct](CODE_OF_CONDUCT.md) for community standards
+3. [Good First Issues](https://github.com/VaultSovereign/vaultmesh-architect-mcp/labels/good%20first%20issue) for newcomers
+
+## License
+
+This project is licensed under the ISC License - see [LICENSE](LICENSE) for details.
+
+## Contact & Support
+
+- **Issues:** [GitHub Issues](https://github.com/VaultSovereign/vaultmesh-architect-mcp/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/VaultSovereign/vaultmesh-architect-mcp/discussions)
+- **Security:** See [SECURITY.md](SECURITY.md)
+
+## Acknowledgments
+
+- [Model Context Protocol](https://modelcontextprotocol.io/) by Anthropic
+- [Ed25519 signatures](https://ed25519.cr.yp.to/) for LAWCHAIN
+- Contributors and community members
+
+---
+
+**Built with ❤️ by the VaultSovereign team**
+
+*VaultMesh Architect: Making architecture auditable, one commit at a time.*

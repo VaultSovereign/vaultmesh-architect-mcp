@@ -1,0 +1,39 @@
+# VaultMesh Architect MCP Code Owners
+#
+# This file defines who is responsible for reviewing changes to specific parts of the codebase.
+# When a pull request modifies files in a directory, the corresponding owners are automatically requested for review.
+#
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owner - applies to everything unless overridden
+* @VaultSovereign
+
+# Documentation
+/docs/ @VaultSovereign
+/README.md @VaultSovereign
+/CONTRIBUTING.md @VaultSovereign
+/SECURITY.md @VaultSovereign
+/CODE_OF_CONDUCT.md @VaultSovereign
+
+# Governance and capabilities
+/governance/ @VaultSovereign
+/specs/ @VaultSovereign
+
+# GitHub configuration
+/.github/ @VaultSovereign
+/.github/workflows/ @VaultSovereign
+
+# Core server implementation
+/server.js @VaultSovereign
+/tests/ @VaultSovereign
+
+# Configuration
+/config/ @VaultSovereign
+/package.json @VaultSovereign
+
+# Tem integration
+/tem/ @VaultSovereign
+/prompts/ @VaultSovereign
+
+# Scripts
+/scripts/ @VaultSovereign
